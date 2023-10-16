@@ -1,0 +1,9 @@
+
+### DATABASE
+quarkus.datasource.db-kind = mysql
+quarkus.datasource.username = USER
+quarkus.datasource.password = PASS
+quarkus.datasource.jdbc.url = jdbc:mysql://IP:PORT/DATABASE_NAME
+
+quarkus.hibernate-orm.database.generation=none
+quarkus.hibernate-orm.physical-naming-strategy=org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
