@@ -62,6 +62,5 @@ hs_err_pid*
 replay_pid*
 
 # Project specific
-config.cfg
 token.cfg
 application.properties
