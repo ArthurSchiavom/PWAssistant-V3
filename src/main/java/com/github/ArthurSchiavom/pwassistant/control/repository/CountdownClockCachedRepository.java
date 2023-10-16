@@ -15,6 +15,5 @@ public class CountdownClockCachedRepository extends CachedRepository<CountdownCl
 
     void onStart(@Observes StartupEvent ev) {
         this.init(repo);
-        System.out.println("a");
     }
 }

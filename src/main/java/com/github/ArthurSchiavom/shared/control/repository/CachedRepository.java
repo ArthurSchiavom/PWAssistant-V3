@@ -14,7 +14,6 @@ public class CachedRepository<T> {
 
         items.clear();
         items.addAll(repo.findAll().list());
-        System.out.println("a");
     }
 
     public void delete(T item) {
