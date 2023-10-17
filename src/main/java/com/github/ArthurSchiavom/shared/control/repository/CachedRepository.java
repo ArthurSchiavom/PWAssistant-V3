@@ -21,9 +21,13 @@ public class CachedRepository<T> {
         items.remove(item);
     }
 
-    public void persist(T item) {
+    public void create(T item) {
         repo.persistAndFlush(item);
         items.add(item);
+    }
+
+    public void update(T item) {
+        repo.getEntityManager().merge(item);
     }
 
     public List<T> getAllItems() {
