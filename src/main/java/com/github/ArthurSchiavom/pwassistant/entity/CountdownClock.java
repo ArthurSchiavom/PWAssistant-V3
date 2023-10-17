@@ -1,7 +1,6 @@
 package com.github.ArthurSchiavom.pwassistant.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -16,7 +15,6 @@ import java.sql.Timestamp;
 @Accessors(chain = true)
 public class CountdownClock {
     @Id
-    @GeneratedValue
     @Setter(AccessLevel.NONE)
     private long id;
     private long serverId;

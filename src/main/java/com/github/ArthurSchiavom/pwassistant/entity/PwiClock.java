@@ -3,7 +3,6 @@ package com.github.ArthurSchiavom.pwassistant.entity;
 import com.github.ArthurSchiavom.shared.entity.converter.EnumListConverter;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Setter;
@@ -13,7 +12,6 @@ import java.util.List;
 @Entity
 public class PwiClock {
     @Id
-    @GeneratedValue
     @Setter(AccessLevel.NONE)
     private long id;
     private long serverId;

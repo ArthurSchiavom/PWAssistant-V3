@@ -5,7 +5,6 @@ import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -20,7 +19,6 @@ import java.util.List;
 @Accessors(chain = true)
 public class ScheduledMessage {
     @Id
-    @GeneratedValue
     @Setter(AccessLevel.NONE)
     private long id;
     private String scheduleName;

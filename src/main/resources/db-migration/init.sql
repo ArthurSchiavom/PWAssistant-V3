@@ -32,7 +32,7 @@ create table scheduled_message
     PRIMARY KEY (id)
 );
 
-create table scheduled_message
+create table trigger
 (
     id bigint NOT NULL AUTO_INCREMENT,
     server_id bigint,

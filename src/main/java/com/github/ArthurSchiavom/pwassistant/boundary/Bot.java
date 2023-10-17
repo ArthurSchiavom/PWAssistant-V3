@@ -6,7 +6,9 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.requests.GatewayIntent;
+import net.dv8tion.jda.api.utils.cache.CacheFlag;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import java.util.concurrent.TimeUnit;
@@ -24,6 +26,11 @@ public class Bot {
 	@ConfigProperty(name = "discord.bot.token")
 	String token;
 
+	@ConfigProperty(name = "discord.bot.activity.type")
+	String activityType;
+	@ConfigProperty(name = "discord.bot.activity.description")
+	String activityDescription;
+
 	@SneakyThrows
 	public void init() {
 		if (jda != null) {
@@ -35,6 +42,8 @@ public class Bot {
 						GatewayIntent.GUILD_EMOJIS_AND_STICKERS,
 						GatewayIntent.GUILD_MEMBERS,
 						GatewayIntent.GUILD_MESSAGE_REACTIONS)
+				.disableCache(CacheFlag.VOICE_STATE, CacheFlag.SCHEDULED_EVENTS)
+				.setActivity(Activity.of(Activity.ActivityType.valueOf(activityType), activityDescription))
 				.build().awaitReady();
 	}
 
