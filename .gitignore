@@ -63,4 +63,4 @@ replay_pid*
 
 # Project specific
 token.cfg
-application.properties
+application*.properties

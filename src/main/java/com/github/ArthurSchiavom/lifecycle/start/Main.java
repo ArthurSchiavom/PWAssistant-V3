@@ -11,7 +11,7 @@ public class Main {
 
     void onStart(@Observes StartupEvent ev) { // TODO REMOVE
         log.info("------------------ STARTING");
-        Bootstrap.load();
+//        Bootstrap.load();
         log.info("------------------ DONE");
     }
 }

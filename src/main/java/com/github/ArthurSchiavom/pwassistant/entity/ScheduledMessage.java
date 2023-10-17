@@ -31,6 +31,6 @@ public class ScheduledMessage {
     private RepetitionType repetitionType;
     @Convert(converter = IntegerListConverter.class)
     private List<Integer> scheduleDays;
-    private short hour;
-    private short minute;
+    private int hour;
+    private int minute;
 }
