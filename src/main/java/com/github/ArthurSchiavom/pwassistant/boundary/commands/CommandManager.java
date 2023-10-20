@@ -22,7 +22,7 @@ public class CommandManager {
 
     void onStart(@Observes StartupEvent ev) {
         slashCommandInstances.stream().forEach(command -> {
-            slashCommands.put(command.getName(), command);
+            slashCommands.put(command.getCommandData().getName(), command);
             commandDataList.add(command.getCommandData());
         });
     }

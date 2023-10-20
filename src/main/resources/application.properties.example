@@ -1,15 +1,22 @@
 
-### MISC
+################## MISC
 testmode = false
 
-### DATABASE
+################## DATABASE
 quarkus.datasource.db-kind = mysql
 quarkus.datasource.username = USER
 quarkus.datasource.password = PASS
-quarkus.datasource.jdbc.url = jdbc:mysql://IP:PORT/DATABASE_NAME
+quarkus.datasource.jdbc.url = jdbc:mysql://URL:PORT/DB_NAME
 
 quarkus.hibernate-orm.database.generation = none
 quarkus.hibernate-orm.physical-naming-strategy = org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy
 
-### DISCORD
+################## DISCORD
+
+######## TOKEN
 discord.bot.token = TOKEN
+
+######## ACTIVITY
+# Types: PLAYING, STREAMING, LISTENING, WATCHING, CUSTOM_STATUS, COMPETING
+discord.bot.activity.type = CUSTOM_STATUS
+discord.bot.activity.description = YOUR BEST ASSISTANT!

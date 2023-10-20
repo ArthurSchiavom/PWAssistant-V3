@@ -54,7 +54,7 @@ public class Bot {
 				.setActivity(Activity.of(Activity.ActivityType.valueOf(activityType), activityDescription))
 				.addEventListeners(jdaListener)
 				.build().awaitReady();
-		jda.updateCommands().addCommands(commandManager.getJdaCommands());
+		jda.updateCommands().addCommands(commandManager.getJdaCommands()).queue();
 	}
 
 	public void shutdown() {

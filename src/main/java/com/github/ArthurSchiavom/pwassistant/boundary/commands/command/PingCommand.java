@@ -11,15 +11,11 @@ public class PingCommand implements SlashCommand {
 
     private static final String NAME = "ping";
     private static final String DESCRIPTION = "PWAssistant's ping to the Discord server";
-
-    @Override
-    public String getName() {
-        return NAME;
-    }
+    private final CommandData commandData = Commands.slash(NAME, DESCRIPTION);
 
     @Override
     public CommandData getCommandData() {
-        return Commands.slash(NAME, DESCRIPTION);
+        return commandData;
     }
 
     @Override
