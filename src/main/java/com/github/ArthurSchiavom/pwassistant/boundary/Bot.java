@@ -1,6 +1,9 @@
 package com.github.ArthurSchiavom.pwassistant.boundary;
 
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.CommandManager;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.JdaListener;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +34,11 @@ public class Bot {
 	@ConfigProperty(name = "discord.bot.activity.description")
 	String activityDescription;
 
+	@Inject
+	CommandManager commandManager;
+	@Inject
+	JdaListener jdaListener;
+
 	@SneakyThrows
 	public void init() {
 		if (jda != null) {
@@ -44,7 +52,9 @@ public class Bot {
 						GatewayIntent.GUILD_MESSAGE_REACTIONS)
 				.disableCache(CacheFlag.VOICE_STATE, CacheFlag.SCHEDULED_EVENTS)
 				.setActivity(Activity.of(Activity.ActivityType.valueOf(activityType), activityDescription))
+				.addEventListeners(jdaListener)
 				.build().awaitReady();
+		jda.updateCommands().addCommands(commandManager.getJdaCommands());
 	}
 
 	public void shutdown() {
