@@ -20,3 +20,6 @@ discord.bot.token = TOKEN
 # Types: PLAYING, STREAMING, LISTENING, WATCHING, CUSTOM_STATUS, COMPETING
 discord.bot.activity.type = CUSTOM_STATUS
 discord.bot.activity.description = YOUR BEST ASSISTANT!
+
+######## COMMANDS
+discord.bot.registercommands=false

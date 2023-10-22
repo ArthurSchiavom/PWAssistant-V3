@@ -66,7 +66,7 @@ public class PWIServerStatus extends CommandWithoutSubCommands {
 		Socket s = new Socket();
 		try {
 			long startTime = System.currentTimeMillis();
-			s.connect(new InetSocketAddress(serverAddress, serverPort), 1000);
+			s.connect(new InetSocketAddress(serverAddress, serverPort), 3000);
 			long endTime = System.currentTimeMillis();
 			return "✅ " + (endTime - startTime) + "ms";
 		} catch (Exception e) {

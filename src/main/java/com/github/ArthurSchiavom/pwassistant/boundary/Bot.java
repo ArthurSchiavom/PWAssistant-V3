@@ -19,6 +19,9 @@ import java.util.concurrent.TimeUnit;
 @ApplicationScoped
 @Slf4j
 public class Bot {
+
+	public static final String NAME = "PWAssistant";
+
 	@Getter
 	private JDA jda;
 
@@ -28,6 +31,8 @@ public class Bot {
 
 	@ConfigProperty(name = "discord.bot.token")
 	String token;
+	@ConfigProperty(name = "discord.bot.registercommands", defaultValue = "false")
+	boolean registerCommands;
 
 	@ConfigProperty(name = "discord.bot.activity.type")
 	String activityType;
@@ -54,7 +59,9 @@ public class Bot {
 				.setActivity(Activity.of(Activity.ActivityType.valueOf(activityType), activityDescription))
 				.addEventListeners(jdaListener)
 				.build().awaitReady();
-		jda.updateCommands().addCommands(commandManager.getJdaCommands()).queue();
+		if (registerCommands) { // registering commands too often causes them to become unavailable
+			 jda.updateCommands().addCommands(commandManager.getJdaCommands()).queue();
+		}
 	}
 
 	public void shutdown() {
