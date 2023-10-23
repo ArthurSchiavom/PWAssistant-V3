@@ -30,7 +30,7 @@ public class PWIServerTime extends CommandWithoutSubCommands {
 			return;
 		}
 
-		PwiServer server = PwiServer.getServer(args);
+		PwiServer server = PwiServer.fromString(args);
 		if (server == null) {
 			channel.sendMessage("There is no server with that name.").queue();
 			return;

@@ -5,6 +5,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.event.Observes;
 import jakarta.enterprise.inject.Instance;
 import jakarta.inject.Inject;
+import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
+import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 
 import java.util.ArrayList;
@@ -33,5 +35,13 @@ public class CommandManager {
 
     public SlashCommand getSlashCommand(final String name) {
         return slashCommands.get(name);
+    }
+
+    public List<Command.Choice> getAutoCompletion(final CommandAutoCompleteInteractionEvent event) {
+        final SlashCommand command = slashCommands.get(event.getName());
+        if (command == null) {
+            return null;
+        }
+        return command.getAutoCompletion();
     }
 }

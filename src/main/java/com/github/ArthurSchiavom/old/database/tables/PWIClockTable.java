@@ -56,7 +56,7 @@ public class PWIClockTable extends Table {
 					String[] pwiServersString = rs.getString(4).split(PWI_SERVERS_SEPARATOR);
 					List<PwiServer> pwiServers = new ArrayList<>();
 					for (String serverString : pwiServersString) {
-						pwiServers.add(PwiServer.getServer(serverString));
+						pwiServers.add(PwiServer.fromString(serverString));
 					}
 
 					register.register(new PWIClock(pwiServers, guildId, channelId, msgId), false);

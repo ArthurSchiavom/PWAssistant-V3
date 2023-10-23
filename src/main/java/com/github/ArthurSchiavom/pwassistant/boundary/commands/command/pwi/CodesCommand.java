@@ -1,4 +1,4 @@
-package com.github.ArthurSchiavom.pwassistant.boundary.commands.command;
+package com.github.ArthurSchiavom.pwassistant.boundary.commands.command.pwi;
 
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.SlashCommand;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -12,7 +12,8 @@ import java.util.Scanner;
 
 @ApplicationScoped
 public class CodesCommand implements SlashCommand {
-    private static final String NAME = "codes";
+    // todo CHANGE ALL OF THESE INTO SUBCOMMANDS
+    private static final String NAME = "pwicodes";
     private static final String DESCRIPTION = "Get a list of active PWI codes!";
 
     private final static String PASTEBIN_URL = "https://pastebin.com/raw/r4yp66Zt";

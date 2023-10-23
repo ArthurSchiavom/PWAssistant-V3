@@ -40,7 +40,7 @@ public class CreatePWIClock extends CommandWithoutSubCommands {
 			return;
 		}
 
-		List<PwiServer> servers = PwiServer.getServers(args);
+		List<PwiServer> servers = PwiServer.multipleFromString(args);
 		if (servers.isEmpty()) {
 			channel.sendMessage("You must specify the PWI servers!").complete();
 			return;

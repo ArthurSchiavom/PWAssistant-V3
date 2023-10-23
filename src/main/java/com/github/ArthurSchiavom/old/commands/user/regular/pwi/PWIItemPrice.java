@@ -53,7 +53,7 @@ public class PWIItemPrice extends CommandWithoutSubCommands {
 			serverName = argsSplit[0];
 			itemName = argsSplit[1];
 		}
-		PwiServer pwiServer = PwiServer.getServer(serverName);
+		PwiServer pwiServer = PwiServer.fromString(serverName);
 		if (pwiServer == null) {
 			channel.sendMessage("You must specify the PWI server. **" + serverName + "** is not a valid server name.").queue();
 			return;
