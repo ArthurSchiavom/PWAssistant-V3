@@ -1,5 +1,6 @@
 package com.github.ArthurSchiavom.pwassistant.boundary.commands;
 
+import jakarta.annotation.Nonnull;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
@@ -24,8 +25,8 @@ public class JdaListener extends ListenerAdapter {
     }
 
     @Override
-    public void onCommandAutoCompleteInteraction(final CommandAutoCompleteInteractionEvent event) {
-        List<Command.Choice> options = commandManager.getAutoCompletion(event);
+    public void onCommandAutoCompleteInteraction(@Nonnull final CommandAutoCompleteInteractionEvent event) {
+        final List<Command.Choice> options = commandManager.getAutoCompletion(event);
         if (options != null && !options.isEmpty()) {
             event.replyChoices(options).queue();
         }
