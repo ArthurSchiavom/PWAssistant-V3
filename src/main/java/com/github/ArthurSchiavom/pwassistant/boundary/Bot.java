@@ -60,7 +60,7 @@ public class Bot {
 				.addEventListeners(jdaListener)
 				.build().awaitReady();
 		if (registerCommands) { // registering commands too often causes them to become unavailable
-			 jda.updateCommands().addCommands(commandManager.getJdaCommands()).queue();
+			 jda.updateCommands().addCommands(commandManager.getJdaCommands()).complete();
 		}
 	}
 

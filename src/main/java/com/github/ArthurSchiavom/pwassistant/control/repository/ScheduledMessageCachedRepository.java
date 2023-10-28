@@ -2,9 +2,7 @@ package com.github.ArthurSchiavom.pwassistant.control.repository;
 
 import com.github.ArthurSchiavom.pwassistant.entity.ScheduledMessage;
 import com.github.ArthurSchiavom.shared.control.repository.CachedRepository;
-import io.quarkus.runtime.StartupEvent;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.event.Observes;
 import jakarta.inject.Inject;
 
 @ApplicationScoped
@@ -13,7 +11,8 @@ public class ScheduledMessageCachedRepository extends CachedRepository<Scheduled
     @Inject
     ScheduledMessageRepository repo;
 
-    void onStart(@Observes StartupEvent ev) {
+    @Override
+    public void init() {
         this.init(repo);
     }
 }

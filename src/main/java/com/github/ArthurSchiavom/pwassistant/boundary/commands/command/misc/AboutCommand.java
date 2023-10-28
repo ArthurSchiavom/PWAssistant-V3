@@ -1,4 +1,4 @@
-package com.github.ArthurSchiavom.pwassistant.boundary.commands.command;
+package com.github.ArthurSchiavom.pwassistant.boundary.commands.command.misc;
 
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.SlashCommand;
 import jakarta.enterprise.context.ApplicationScoped;

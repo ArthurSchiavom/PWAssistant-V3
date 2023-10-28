@@ -1,9 +1,7 @@
 package com.github.ArthurSchiavom.pwassistant.boundary.commands;
 
-import io.quarkus.runtime.StartupEvent;
+import io.quarkus.arc.All;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.event.Observes;
-import jakarta.enterprise.inject.Instance;
 import jakarta.inject.Inject;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.Command;
@@ -17,13 +15,14 @@ import java.util.Map;
 @ApplicationScoped
 public class CommandManager {
     @Inject
-    Instance<SlashCommand> slashCommandInstances;
+    @All
+    List<SlashCommand> slashCommandInstances;
 
     private final Map<String, SlashCommand> slashCommands = new HashMap<>();
     private final List<CommandData> commandDataList = new ArrayList<>();
 
-    void onStart(@Observes StartupEvent ev) {
-        slashCommandInstances.stream().forEach(command -> {
+    public void init() {
+        slashCommandInstances.forEach(command -> {
             slashCommands.put(command.getCommandData().getName(), command);
             commandDataList.add(command.getCommandData());
         });
@@ -42,6 +41,6 @@ public class CommandManager {
         if (command == null) {
             return null;
         }
-        return command.getAutoCompletion();
+        return command.getAutoCompletion(event);
     }
 }

@@ -10,6 +10,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
@@ -73,7 +74,7 @@ public class GetServerRoleCommand implements SlashCommand {
     }
 
     @Override
-    public List<Command.Choice> getAutoCompletion() {
+    public List<Command.Choice> getAutoCompletion(final CommandAutoCompleteInteractionEvent event) {
         return Choices.getPwiServerChoices();
     }
 }

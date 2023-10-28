@@ -1,4 +1,4 @@
-package com.github.ArthurSchiavom.pwassistant.boundary.commands.command.pwi;
+package com.github.ArthurSchiavom.pwassistant.boundary.commands.command.pwi.server;
 
 import com.github.ArthurSchiavom.old.information.ownerconfiguration.Embeds;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.SlashCommand;

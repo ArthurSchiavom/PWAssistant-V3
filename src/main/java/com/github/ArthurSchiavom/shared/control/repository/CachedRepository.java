@@ -5,11 +5,13 @@ import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CachedRepository<T> {
+public abstract class CachedRepository<T> {
     private PanacheRepository<T> repo;
     private final List<T> items = new ArrayList<>();
 
-    public void init(final PanacheRepository<T> repo) {
+    public abstract void init();
+
+    protected void init(final PanacheRepository<T> repo) {
         this.repo = repo;
 
         items.clear();
