@@ -1,7 +1,6 @@
 package com.github.ArthurSchiavom.pwassistant.boundary.commands.command.pwi.server;
 
 import com.github.ArthurSchiavom.old.information.ownerconfiguration.Embeds;
-import com.github.ArthurSchiavom.pwassistant.boundary.commands.SlashCommand;
 import jakarta.enterprise.context.ApplicationScoped;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;

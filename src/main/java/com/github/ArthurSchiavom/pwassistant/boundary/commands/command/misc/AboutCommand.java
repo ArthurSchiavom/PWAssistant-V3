@@ -1,6 +1,5 @@
 package com.github.ArthurSchiavom.pwassistant.boundary.commands.command.misc;
 
-import com.github.ArthurSchiavom.pwassistant.boundary.commands.SlashCommand;
 import jakarta.enterprise.context.ApplicationScoped;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;

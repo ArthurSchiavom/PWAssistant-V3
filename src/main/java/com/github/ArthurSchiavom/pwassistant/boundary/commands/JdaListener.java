@@ -17,11 +17,8 @@ public class JdaListener extends ListenerAdapter {
     CommandManager commandManager;
 
     @Override
-    public void onSlashCommandInteraction(final SlashCommandInteractionEvent event) {
-        final SlashCommand slashCommand = commandManager.getSlashCommand(event.getName());
-        if (slashCommand != null) {
-            slashCommand.execute(event);
-        }
+    public void onSlashCommandInteraction(@Nonnull final SlashCommandInteractionEvent event) {
+        commandManager.execute(event);
     }
 
     @Override
