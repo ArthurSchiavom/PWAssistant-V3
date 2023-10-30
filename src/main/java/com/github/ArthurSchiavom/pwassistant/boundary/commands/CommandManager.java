@@ -64,7 +64,7 @@ public class CommandManager {
                 commandData.addSubcommands(subcommandData);
             }
         }
-        return null;
+        return newCommandDataList;
     }
 
     private SlashCommandData createCommandData(SlashCommandInfo info) {
@@ -116,7 +116,7 @@ public class CommandManager {
     }
 
     public void execute(SlashCommandInteractionEvent event) {
-        final SlashCommand command = getSlashCommand(event.getName(), event.getSubcommandGroup(), event.getSubcommandName()));
+        final SlashCommand command = getSlashCommand(event.getName(), event.getSubcommandGroup(), event.getSubcommandName());
         if (command != null) {
             command.execute(event);
         }
