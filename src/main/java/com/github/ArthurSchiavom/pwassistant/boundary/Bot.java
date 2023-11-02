@@ -31,7 +31,7 @@ public class Bot {
 
 	@ConfigProperty(name = "discord.bot.token")
 	String token;
-	@ConfigProperty(name = "discord.bot.registercommands", defaultValue = "false")
+	@ConfigProperty(name = "discord.bot.registercommands", defaultValue = "true")
 	boolean registerCommands;
 
 	@ConfigProperty(name = "discord.bot.activity.type")
@@ -59,7 +59,7 @@ public class Bot {
 				.setActivity(Activity.of(Activity.ActivityType.valueOf(activityType), activityDescription))
 				.addEventListeners(jdaListener)
 				.build().awaitReady();
-		if (registerCommands) { // registering commands too often causes them to become unavailable
+		if (registerCommands) {
 			 jda.updateCommands().addCommands(commandManager.getJdaCommands()).complete();
 		}
 	}
