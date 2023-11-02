@@ -1,9 +1,11 @@
-package com.github.ArthurSchiavom.pwassistant.boundary.commands.command.misc;
+package com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.command.info;
 
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommand;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandCategory;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandInfo;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandPath;
 import jakarta.enterprise.context.ApplicationScoped;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.interactions.commands.build.CommandData;
-import net.dv8tion.jda.api.interactions.commands.build.Commands;
 
 @ApplicationScoped
 public class AboutCommand implements SlashCommand {
@@ -23,10 +25,13 @@ public class AboutCommand implements SlashCommand {
             ♥ [CLICK HERE TO JOIN PWI KINGDOM!](https://discord.gg/pwi-kingdom-251460250115375114)
             If you're interested in my source code, it's all [here](https://github.com/ArthurSchiavom/PWAssistant-V3).""";
 
-    private final CommandData commandData = Commands.slash(NAME, DESCRIPTION);
     @Override
-    public CommandData getCommandData() {
-        return commandData;
+    public SlashCommandInfo getSlashCommandInfo() {
+        return new SlashCommandInfo(new SlashCommandPath(NAME, null, null),
+                DESCRIPTION,
+                false,
+                null,
+                SlashCommandCategory.INFO);
     }
 
     @Override

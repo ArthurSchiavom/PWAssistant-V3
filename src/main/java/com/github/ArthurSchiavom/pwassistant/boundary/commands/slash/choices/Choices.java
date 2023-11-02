@@ -1,4 +1,4 @@
-package com.github.ArthurSchiavom.pwassistant.boundary.commands.choices;
+package com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.choices;
 
 import com.github.ArthurSchiavom.pwassistant.entity.PwiServer;
 import lombok.AccessLevel;

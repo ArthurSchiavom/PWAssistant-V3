@@ -1,9 +1,12 @@
-package com.github.ArthurSchiavom.pwassistant.boundary.commands.command.pwi;
+package com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.command.pwi;
 
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommand;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandCategory;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandInfo;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandNames;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandPath;
 import jakarta.enterprise.context.ApplicationScoped;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.interactions.commands.build.CommandData;
-import net.dv8tion.jda.api.interactions.commands.build.Commands;
 
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
@@ -11,17 +14,18 @@ import java.util.Scanner;
 
 @ApplicationScoped
 public class CodesCommand implements SlashCommand {
-    // todo CHANGE ALL OF THESE INTO SUBCOMMANDS
-    private static final String NAME = "pwicodes";
+    private static final String NAME = "codes";
     private static final String DESCRIPTION = "Get a list of active PWI codes!";
 
     private final static String PASTEBIN_URL = "https://pastebin.com/raw/r4yp66Zt";
 
-    private final CommandData commandData = Commands.slash(NAME, DESCRIPTION);
-
     @Override
-    public CommandData getCommandData() {
-        return commandData;
+    public SlashCommandInfo getSlashCommandInfo() {
+        return new SlashCommandInfo(new SlashCommandPath(SlashCommandNames.PWI, null, NAME),
+                DESCRIPTION,
+                true,
+                null,
+                SlashCommandCategory.PWI);
     }
 
     @Override

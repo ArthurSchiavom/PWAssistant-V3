@@ -1,7 +1,12 @@
-package com.github.ArthurSchiavom.pwassistant.boundary.commands.command.pwi;
+package com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.command.pwi;
 
-import com.github.ArthurSchiavom.pwassistant.boundary.commands.SlashCommand;
-import com.github.ArthurSchiavom.pwassistant.boundary.commands.choices.Choices;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommand;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandCategory;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandInfo;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandNames;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandPath;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandSubgroups;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.choices.Choices;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.validations.Validations;
 import com.github.ArthurSchiavom.pwassistant.boundary.utils.MemberUtils;
 import com.github.ArthurSchiavom.pwassistant.entity.PwiServer;
@@ -17,13 +22,12 @@ import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.CommandData;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
-import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.util.List;
 
 @ApplicationScoped
 public class GetServerRoleCommand implements SlashCommand {
-    private static final String NAME = "pwiserverroole";
+    private static final String NAME = "role";
     private static final String DESCRIPTION = "Get or remove a PWI server role!";
 
     private final CommandData commandData = Commands.slash(NAME, DESCRIPTION).setGuildOnly(true)
@@ -35,8 +39,12 @@ public class GetServerRoleCommand implements SlashCommand {
     GlobalConfig config;
 
     @Override
-    public CommandData getCommandData() {
-        return commandData;
+    public SlashCommandInfo getSlashCommandInfo() {
+        return new SlashCommandInfo(new SlashCommandPath(SlashCommandNames.PWI, SlashCommandSubgroups.SERVER, NAME),
+                DESCRIPTION,
+                true,
+                null,
+                SlashCommandCategory.PWI);
     }
 
     @Override

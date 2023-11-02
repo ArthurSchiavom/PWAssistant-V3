@@ -1,14 +1,16 @@
-package com.github.ArthurSchiavom.pwassistant.boundary.commands.command.misc;
+package com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.command.info;
 
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommand;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandCategory;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandInfo;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandPath;
 import jakarta.enterprise.context.ApplicationScoped;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.interactions.commands.build.CommandData;
-import net.dv8tion.jda.api.interactions.commands.build.Commands;
 
 @ApplicationScoped
 public class PrivacyPolicyCommand implements SlashCommand {
     private static final String NAME = "privacy";
-    private static final String DESCRIPTION = "Privacy Policy";
+    private static final String DESCRIPTION = "Privacy policy";
 
     private static final String[] MESSAGE = {"""
             # Overview
@@ -37,11 +39,13 @@ public class PrivacyPolicyCommand implements SlashCommand {
             # Section 9 - Contact Information
             Questions about the Privacy Policy should be sent to us via email at pwassistantbot@gmail.com"""};
 
-    private final CommandData commandData = Commands.slash(NAME, DESCRIPTION);
-
     @Override
-    public CommandData getCommandData() {
-        return commandData;
+    public SlashCommandInfo getSlashCommandInfo() {
+        return new SlashCommandInfo(new SlashCommandPath(NAME, null, null),
+                DESCRIPTION,
+                false,
+                null,
+                SlashCommandCategory.INFO);
     }
 
     @Override

@@ -1,11 +1,15 @@
-package com.github.ArthurSchiavom.pwassistant.boundary.commands.command.pwi.server;
+package com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.command.pwi.server;
 
 import com.github.ArthurSchiavom.old.information.ownerconfiguration.Embeds;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommand;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandCategory;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandInfo;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandNames;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandPath;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandSubgroups;
 import jakarta.enterprise.context.ApplicationScoped;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.interactions.commands.build.CommandData;
-import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.utils.messages.MessageEditData;
 
 import java.io.IOException;
@@ -23,14 +27,18 @@ public class ServerStatusCommand implements SlashCommand {
     private final String TI_SERVER_URL = "pwieast2.playpwi.com";
     private final int SERVER_PORT = 29000;
 
-    private static final String NAME = "pwiserverstatus";
-    private static final String DESCRIPTION = "Are PWI servers' up?";
-    private final CommandData commandData = Commands.slash(NAME, DESCRIPTION);
+    private static final String SUBCOMMAND_NAME = "status";
+    private static final String DESCRIPTION = "Check if PWI servers are up";
 
     @Override
-    public CommandData getCommandData() {
-        return commandData;
+    public SlashCommandInfo getSlashCommandInfo() {
+        return new SlashCommandInfo(new SlashCommandPath(SlashCommandNames.PWI, SlashCommandSubgroups.SERVER, SUBCOMMAND_NAME),
+                DESCRIPTION,
+                true,
+                null,
+                SlashCommandCategory.PWI);
     }
+
 
     @Override
     public void execute(final SlashCommandInteractionEvent event) {

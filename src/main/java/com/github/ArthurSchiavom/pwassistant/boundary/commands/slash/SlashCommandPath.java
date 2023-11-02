@@ -1,4 +1,4 @@
-package com.github.ArthurSchiavom.pwassistant.boundary.commands;
+package com.github.ArthurSchiavom.pwassistant.boundary.commands.slash;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,5 +23,17 @@ public class SlashCommandPath {
     @Override
     public int hashCode() {
         return Objects.hash(name, subGroupName, subCommandName);
+    }
+
+    public String getFullPath() {
+        final StringBuilder sb = new StringBuilder();
+        sb.append(name);
+        if (subGroupName != null) {
+            sb.append(" ").append(subGroupName);
+        }
+        if (subCommandName != null) {
+            sb.append(" ").append(subCommandName);
+        }
+        return sb.toString();
     }
 }
