@@ -16,7 +16,7 @@ public class PwiServerService {
      * @return true or false according to whether the program .
      */
     public boolean isServerUp(final PwiServer server) {
-        return isServerUp(server.getName(), server.getPort());
+        return isServerUp(server.getUrl(), server.getPort());
     }
 
     /**

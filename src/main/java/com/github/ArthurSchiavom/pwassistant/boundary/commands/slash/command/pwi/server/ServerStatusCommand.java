@@ -1,6 +1,7 @@
 package com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.command.pwi.server;
 
 import com.github.ArthurSchiavom.old.information.ownerconfiguration.Embeds;
+import com.github.ArthurSchiavom.pwassistant.boundary.BoundaryConfig;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommand;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandCategory;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandInfo;
@@ -45,15 +46,21 @@ public class ServerStatusCommand implements SlashCommand {
             String statusesString = getServersAvailabilityDisplay();
             eb.setDescription(statusesString);
             eb.setThumbnail(PWI_ICON_URL);
+            eb.setColor(BoundaryConfig.DEFAULT_EMBED_COLOR);
 
             h.editOriginal(MessageEditData.fromEmbeds(eb.build())).queue();
         });
     }
 
     private String getServersAvailabilityDisplay() {
-        return "**Dawnglory** " + pwiServerService.isServerUp(PwiServer.DAWNGLORY) +
-                "\n\n**Etherblade** " + pwiServerService.isServerUp(PwiServer.ETHERBLADE) +
-                "\n\n**Twilight Temple** " + pwiServerService.isServerUp(PwiServer.TWILIGHT_TEMPLE) +
-                "\n\n**Tideswell** " + pwiServerService.isServerUp(PwiServer.TIDESWELL);
+        final StringBuilder sb = new StringBuilder();
+        for (final PwiServer server : PwiServer.values()) {
+            sb.append("\n\n**").append(server.getName()).append("** ").append(getServerStatusEmoji(pwiServerService.isServerUp(server)));
+        }
+        return sb.toString();
+    }
+
+    private String getServerStatusEmoji(final boolean serverUp) {
+        return serverUp ? "✅" : "down";
     }
 }

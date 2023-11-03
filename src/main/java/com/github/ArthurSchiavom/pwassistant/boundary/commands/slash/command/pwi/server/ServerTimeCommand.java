@@ -1,12 +1,16 @@
 package com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.command.pwi.server;
 
+import com.github.ArthurSchiavom.pwassistant.boundary.BoundaryConfig;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommand;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandCategory;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandInfo;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandNames;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandPath;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandSubgroups;
+import com.github.ArthurSchiavom.pwassistant.boundary.utils.DisplayUtils;
+import com.github.ArthurSchiavom.pwassistant.entity.PwiServer;
 import jakarta.enterprise.context.ApplicationScoped;
+import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
 @ApplicationScoped
@@ -25,10 +29,17 @@ public class ServerTimeCommand implements SlashCommand {
 
     @Override
     public void execute(final SlashCommandInteractionEvent event) {
-        event.reply("ok").setEphemeral(true).queue();
-        System.out.println("full " + event.getFullCommandName());
-        System.out.println("cmd " + event.getCommandString());
-        System.out.println("sub " + event.getSubcommandName());
-        System.out.println("group " + event.getSubcommandGroup());
+        final StringBuilder sb = new StringBuilder();
+        for (final PwiServer server : PwiServer.values()) {
+            sb.append("\n\n 🕒 **" ).append(server.getName()).append("**: ").append(DisplayUtils.formatCalendar(server.getCurrentTime()));
+        }
+
+        final EmbedBuilder eb = new EmbedBuilder();
+        eb.setTitle("Current Time");
+        eb.setThumbnail(BoundaryConfig.PWI_ICON_URL);
+        eb.setColor(BoundaryConfig.DEFAULT_EMBED_COLOR);
+        eb.setDescription(sb.toString());
+
+        event.replyEmbeds(eb.build()).queue();
     }
 }

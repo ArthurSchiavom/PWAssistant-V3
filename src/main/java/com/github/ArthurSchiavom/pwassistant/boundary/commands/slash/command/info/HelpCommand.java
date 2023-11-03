@@ -1,6 +1,5 @@
 package com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.command.info;
 
-import com.github.ArthurSchiavom.pwassistant.boundary.commands.DefaultEmbedConfig;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommand;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandCategory;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandInfo;
@@ -50,7 +49,7 @@ public class HelpCommand implements SlashCommand {
 
     private MessageEmbed buildHelpMessage() {
         final EmbedBuilder eb = new EmbedBuilder();
-        eb.setColor(DefaultEmbedConfig.DEFAULT_EMBED_COLOR);
+        eb.setColor(BoundaryConfig.DEFAULT_EMBED_COLOR);
         eb.setThumbnail(BoundaryConfig.PWI_ICON_URL);
         for (final SlashCommandCategory value : SlashCommandCategory.values()) {
             final List<SlashCommand> categoryCommands = slashCommands.stream()
