@@ -4,6 +4,8 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class DisplayUtils {
+public class BoundaryConfig {
+    public static final String PWI_ICON_URL = "https://live.staticflickr.com/65535/53275964814_dd90a31178_o_d.png";
     public static final String INVISIBLE_CHARACTER = "\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00\uDB40\uDC00";
+    public static final String PASTEBIN_URL = "https://pastebin.com/raw/r4yp66Zt";
 }

@@ -1,12 +1,11 @@
 package com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.command.info;
 
-import com.github.ArthurSchiavom.pwassistant.boundary.DisplayUtils;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.DefaultEmbedConfig;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommand;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandCategory;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandInfo;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandPath;
-import com.github.ArthurSchiavom.pwassistant.control.config.PWI;
+import com.github.ArthurSchiavom.pwassistant.boundary.BoundaryConfig;
 import io.quarkus.arc.All;
 import io.quarkus.runtime.StartupEvent;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -52,7 +51,7 @@ public class HelpCommand implements SlashCommand {
     private MessageEmbed buildHelpMessage() {
         final EmbedBuilder eb = new EmbedBuilder();
         eb.setColor(DefaultEmbedConfig.DEFAULT_EMBED_COLOR);
-        eb.setThumbnail(PWI.PWI_ICON_URL);
+        eb.setThumbnail(BoundaryConfig.PWI_ICON_URL);
         for (final SlashCommandCategory value : SlashCommandCategory.values()) {
             final List<SlashCommand> categoryCommands = slashCommands.stream()
                     .filter(c -> c.getSlashCommandInfo().getCategory() == value)
@@ -76,6 +75,6 @@ public class HelpCommand implements SlashCommand {
         final SlashCommandInfo firstCommandInfo = commandsIt.next();
         sb.append(" • /**").append(firstCommandInfo.getPath().getFullPath()).append("**").append(" - ").append(firstCommandInfo.getDescription());
         commandsIt.forEachRemaining(c -> sb.append("\n • /**").append(c.getPath().getFullPath()).append("**").append(" - ").append(c.getDescription()));
-        return sb.append("\n").append(DisplayUtils.INVISIBLE_CHARACTER).toString();
+        return sb.append("\n").append(BoundaryConfig.INVISIBLE_CHARACTER).toString();
     }
 }

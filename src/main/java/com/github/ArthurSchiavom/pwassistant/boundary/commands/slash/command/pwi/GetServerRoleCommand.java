@@ -6,7 +6,7 @@ import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashComman
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandNames;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandPath;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandSubgroups;
-import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.choices.Choices;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.choices.PwiServerChoices;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.validations.Validations;
 import com.github.ArthurSchiavom.pwassistant.boundary.utils.MemberUtils;
 import com.github.ArthurSchiavom.pwassistant.entity.PwiServer;
@@ -18,10 +18,8 @@ import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.Command;
-import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
-import net.dv8tion.jda.api.interactions.commands.build.CommandData;
-import net.dv8tion.jda.api.interactions.commands.build.Commands;
+import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.util.List;
 
@@ -30,20 +28,20 @@ public class GetServerRoleCommand implements SlashCommand {
     private static final String NAME = "role";
     private static final String DESCRIPTION = "Get or remove a PWI server role!";
 
-    private final CommandData commandData = Commands.slash(NAME, DESCRIPTION).setGuildOnly(true)
-            .addOption(OptionType.STRING, "server-name", "ET, TT, TI or DA", true, true);
+    private static final String OPTION_SERVER_NAME = "server-name";
 
     @Inject
     Validations validations;
     @Inject
     GlobalConfig config;
+    final PwiServerChoices pwiServerChoices = new PwiServerChoices();
 
     @Override
     public SlashCommandInfo getSlashCommandInfo() {
         return new SlashCommandInfo(new SlashCommandPath(SlashCommandNames.PWI, SlashCommandSubgroups.SERVER, NAME),
                 DESCRIPTION,
                 true,
-                null,
+                List.of(new OptionData(OptionType.STRING, OPTION_SERVER_NAME, "ET, TT, TI or DA", true, true)),
                 SlashCommandCategory.PWI);
     }
 
@@ -53,13 +51,12 @@ public class GetServerRoleCommand implements SlashCommand {
             event.reply("This command is only usable in my home server, PWI Kingdom.").queue();
             return;
         }
-
-        final List<OptionMapping> options = event.getOptions();
-        if (options.isEmpty()) {
+        if (event.getOptions().isEmpty()) {
             event.reply("Please specify the server in the command when you use it.").queue();
             return;
         }
-        final PwiServer server = Choices.getPwiServerFromChoice(options, 0);
+
+        final PwiServer server = pwiServerChoices.getOptionObjectFromPayload(event, OPTION_SERVER_NAME);
         if (server == null) {
             event.reply("Could not identify the server you specified, please choose Etherblade, Twilight Temple, Tideswell or Dawnglory.").queue();
             return;
@@ -84,6 +81,6 @@ public class GetServerRoleCommand implements SlashCommand {
 
     @Override
     public List<Command.Choice> getAutoCompletion(final CommandAutoCompleteInteractionEvent event) {
-        return Choices.getPwiServerChoices();
+        return pwiServerChoices.getChoices();
     }
 }

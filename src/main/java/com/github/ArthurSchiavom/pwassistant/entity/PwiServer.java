@@ -1,39 +1,33 @@
 package com.github.ArthurSchiavom.pwassistant.entity;
 
 import com.github.ArthurSchiavom.shared.control.config.GlobalConfig;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.TimeZone;
 
+@Getter
 public enum PwiServer {
-	ETHERBLADE("Etherblade", "ET", "PST")
-	, TWILIGHT_TEMPLE("Twilight Temple", "TT", "PST")
-	, DAWNGLORY("Dawnglory", "DA", "CET")
-	, TIDESWELL("Tideswell", "TI", "America/New_York");
+	ETHERBLADE("Etherblade", "ET", "PST", "pwieu3.en.perfectworld.eu", 29000)
+	, TWILIGHT_TEMPLE("Twilight Temple", "TT", "PST", "pwiwest4.playpwi.com", 29000)
+	, DAWNGLORY("Dawnglory", "DA", "CET", "pwigc2.playpwi.com", 29000)
+	, TIDESWELL("Tideswell", "TI", "America/New_York", "pwieast2.playpwi.com", 29000);
 
 	private final String name;
 	private final String shortName;
 	private final String timezone;
-	PwiServer(String name, String shortName, String timezone) {
+	private final String url;
+	private final int port;
+
+	PwiServer(String name, String shortName, String timezone, String url, int port) {
 		this.name = name;
 		this.shortName = shortName;
 		this.timezone = timezone;
+		this.url = url;
+		this.port = port;
 	}
-
-	public String getName() {
-		return name;
-	}
-
-	public String getShortName() {
-		return shortName;
-	}
-
-	public String getTimezoneString() {
-		return timezone;
-	}
-
 
 	/**
 	 * Finds a server mentioned in a String.
