@@ -6,4 +6,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SlashCommandSubgroups {
     public static final String SERVER = "server";
+    public static final String CLASS = "class";
 }

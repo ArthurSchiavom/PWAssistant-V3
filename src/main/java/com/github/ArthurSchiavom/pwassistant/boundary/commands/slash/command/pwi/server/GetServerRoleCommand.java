@@ -1,4 +1,4 @@
-package com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.command.pwi;
+package com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.command.pwi.server;
 
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommand;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandCategory;
@@ -8,13 +8,12 @@ import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashComman
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandSubgroups;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.choices.PwiServerChoices;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.validations.Validations;
-import com.github.ArthurSchiavom.pwassistant.boundary.utils.MemberUtils;
+import com.github.ArthurSchiavom.pwassistant.boundary.utils.ChoiceUtils;
+import com.github.ArthurSchiavom.pwassistant.boundary.utils.RoleUtils;
 import com.github.ArthurSchiavom.pwassistant.entity.PwiServer;
 import com.github.ArthurSchiavom.shared.control.config.GlobalConfig;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.Command;
@@ -62,25 +61,15 @@ public class GetServerRoleCommand implements SlashCommand {
             return;
         }
 
-        final Guild guild = event.getGuild();
-        final Role serverRoleId = guild.getRoleById(server.getId(config));
-        final List<Long> roles = MemberUtils.getMemberRolesIds(event.getMember());
-        final boolean removeRole = roles.contains(serverRoleId.getIdLong());
-        if (removeRole) {
-            guild.removeRoleFromMember(event.getUser(), serverRoleId)
-                    .queue(
-                            h -> event.reply("You no longer have the role " + server.getName() + "!").queue(),
-                            t -> event.reply("Failed to remove the role " + server.getName() + " from you. Please mention admins.").queue());
-        } else {
-            guild.addRoleToMember(event.getUser(), serverRoleId)
-                    .queue(
-                            h -> event.reply("You now have the role " + server.getName() + "!").queue(),
-                            t -> event.reply("Failed to give you the role " + server.getName() + ". Please mention admins.").queue());
-        }
+        RoleUtils.toggleRole(event.getGuild(), server.getId(config), event.getMember(),
+                h -> event.reply("You now have the role " + server.getName() + "!").queue(),
+                h -> event.reply("You no longer have the role " + server.getName() + "!").queue(),
+                t -> event.reply("Failed to add/remove the role " + server.getName() + " from you. Please mention admins.").queue());
     }
 
     @Override
     public List<Command.Choice> getAutoCompletion(final CommandAutoCompleteInteractionEvent event) {
-        return pwiServerChoices.getChoices();
+        final String userInput = ChoiceUtils.getChoiceAsString(event, OPTION_SERVER_NAME);
+        return pwiServerChoices.getAutocompleteChoices(userInput);
     }
 }
