@@ -61,6 +61,6 @@ public class ServerStatusCommand implements SlashCommand {
     }
 
     private String getServerStatusEmoji(final boolean serverUp) {
-        return serverUp ? "✅" : "down";
+        return serverUp ? "✅" : "offline";
     }
 }
