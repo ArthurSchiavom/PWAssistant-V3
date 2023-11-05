@@ -21,4 +21,8 @@ public class GlobalConfig {
 
     @ConfigProperty(name = "discord.mainserver.role.freegames.id")
     Long roleIdFreeGames;
+
+    @ConfigProperty(name = "discord.botowner.id")
+    Long botOwnerId;
+
 }

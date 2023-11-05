@@ -27,7 +27,7 @@ public class ReactCommand  implements SlashCommand {
     public SlashCommandInfo getSlashCommandInfo() {
         return new SlashCommandInfo(new SlashCommandPath(NAME, null, null),
                 DESCRIPTION,
-                false,
+                true,
                 List.of(new OptionData(OptionType.STRING, OPTION_NAME_EMOTE, OPTION_DESCRIPTION_EMOJI, true, false),
                         new OptionData(OptionType.STRING, OPTION_NAME_MESSAGE_ID, OPTION_DESCRIPTION_MESSAGE_ID, false, false)),
                 SlashCommandCategory.FUN);

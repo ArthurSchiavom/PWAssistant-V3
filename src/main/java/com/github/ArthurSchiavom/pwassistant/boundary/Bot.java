@@ -51,10 +51,11 @@ public class Bot {
 		}
 
 		jda = JDABuilder.createDefault(token,
-						GatewayIntent.DIRECT_MESSAGES,
 						GatewayIntent.GUILD_EMOJIS_AND_STICKERS,
 						GatewayIntent.GUILD_MEMBERS,
-						GatewayIntent.GUILD_MESSAGE_REACTIONS)
+						GatewayIntent.GUILD_MESSAGE_REACTIONS,
+						GatewayIntent.GUILD_MESSAGES,
+						GatewayIntent.MESSAGE_CONTENT)
 				.disableCache(CacheFlag.VOICE_STATE, CacheFlag.SCHEDULED_EVENTS)
 				.setActivity(Activity.of(Activity.ActivityType.valueOf(activityType), activityDescription))
 				.addEventListeners(jdaListener)
