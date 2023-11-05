@@ -19,6 +19,7 @@ discord.mainserver.role.etherblade.id = 718233182956421162
 discord.mainserver.role.twilighttemple.id = 718236177169252572
 discord.mainserver.role.tideswell.id = 718236344282906666
 discord.mainserver.role.dawnglory.id = 718236488428683327
+discord.mainserver.role.freegames.id = 568475847736950806
 
 ######## TOKEN
 discord.bot.token = TOKEN

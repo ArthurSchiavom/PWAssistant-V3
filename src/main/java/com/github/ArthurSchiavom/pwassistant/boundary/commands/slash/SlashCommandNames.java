@@ -7,4 +7,5 @@ import lombok.NoArgsConstructor;
 public class SlashCommandNames {
     public static final String PWI = "pwi";
     public static final String PWI_KINGDOM = "pwikingdom";
+    public static final String FREE_GAMES = "freegames";
 }
