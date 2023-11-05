@@ -7,4 +7,5 @@ import lombok.NoArgsConstructor;
 public class SlashCommandSubgroups {
     public static final String SERVER = "server";
     public static final String CLASS = "class";
+    public static final String ITEM = "item";
 }

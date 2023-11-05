@@ -2,11 +2,8 @@ package com.github.ArthurSchiavom.old.commands.user.regular.pwi;
 
 import com.github.ArthurSchiavom.old.commands.base.Category;
 import com.github.ArthurSchiavom.old.commands.base.CommandWithoutSubCommands;
-import com.github.ArthurSchiavom.old.information.ownerconfiguration.pwiItems.PWIItems;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-
-import java.util.List;
 
 public class PWIItemInfo extends CommandWithoutSubCommands {
 	public PWIItemInfo() {
@@ -31,20 +28,20 @@ public class PWIItemInfo extends CommandWithoutSubCommands {
 			return;
 		}
 
-		List<com.github.ArthurSchiavom.old.information.ownerconfiguration.pwiItems.PWIItem> pwiItems = PWIItems.getMatchingItems(args);
-		if (pwiItems.size() > 10) {
-			channel.sendMessage("More than 10 results! Try again but be more specific.").queue();
-		}
-		else if(pwiItems.size() < 1) {
-			channel.sendMessage("No items found by **" + args + "**").queue();
-		}
-		else {
-			StringBuilder resultSB = new StringBuilder();
-			for (com.github.ArthurSchiavom.old.information.ownerconfiguration.pwiItems.PWIItem item : pwiItems) {
-				resultSB.append("\n__").append(item.getName()).append("__: <")
-						.append(item.getInfoLink()).append(">");
-			}
-			channel.sendMessage(resultSB.toString()).queue();
-		}
+//		List<PwiItemDto> pwiItemDtos = PWIItemService.getMatchingItems(args);
+//		if (pwiItemDtos.size() > 10) {
+//			channel.sendMessage("More than 10 results! Try again but be more specific.").queue();
+//		}
+//		else if(pwiItemDtos.size() < 1) {
+//			channel.sendMessage("No items found by **" + args + "**").queue();
+//		}
+//		else {
+//			StringBuilder resultSB = new StringBuilder();
+//			for (PwiItemDto item : pwiItemDtos) {
+//				resultSB.append("\n__").append(item.getName()).append("__: <")
+//						.append(item.getInfoLink()).append(">");
+//			}
+//			channel.sendMessage(resultSB.toString()).queue();
+//		}
 	}
 }

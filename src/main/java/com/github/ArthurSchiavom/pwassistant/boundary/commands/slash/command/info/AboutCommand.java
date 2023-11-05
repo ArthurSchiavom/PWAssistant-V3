@@ -7,12 +7,16 @@ import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashComman
 import jakarta.enterprise.context.ApplicationScoped;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
+import static com.github.ArthurSchiavom.pwassistant.boundary.BoundaryConfig.GITHUB_URL;
+import static com.github.ArthurSchiavom.pwassistant.boundary.BoundaryConfig.MAIN_SERVER_INVITE_URL;
+
 @ApplicationScoped
 public class AboutCommand implements SlashCommand {
     private static final String NAME = "about";
     private static final String DESCRIPTION = "Are you curious about me?";
+    private final String MESSAGE;
 
-    private static final String MESSAGE = """
+    private static final String MESSAGE_TEMPLATE = """
             Hello!
 
             I was initially released in November 2017 with the purpose of helping administrate and serve the members of **PWI Kingdom**.
@@ -22,8 +26,12 @@ public class AboutCommand implements SlashCommand {
             We currently have over 300 members from all servers online every day!
             **__If you wish to join, we'll be glad to welcome you!__**
 
-            ♥ [CLICK HERE TO JOIN PWI KINGDOM!](https://discord.gg/pwi-kingdom-251460250115375114)
-            If you're interested in my source code, it's all [here](https://github.com/ArthurSchiavom/PWAssistant-V3).""";
+            ♥ [CLICK HERE TO JOIN PWI KINGDOM!](%s)
+            If you're interested in my source code, it's all [here](%s).""";
+
+    public AboutCommand() {
+        MESSAGE = String.format(MESSAGE_TEMPLATE, MAIN_SERVER_INVITE_URL, GITHUB_URL);
+    }
 
     @Override
     public SlashCommandInfo getSlashCommandInfo() {

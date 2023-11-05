@@ -6,4 +6,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class SlashCommandNames {
     public static final String PWI = "pwi";
+    public static final String PWI_KINGDOM = "pwikingdom";
 }

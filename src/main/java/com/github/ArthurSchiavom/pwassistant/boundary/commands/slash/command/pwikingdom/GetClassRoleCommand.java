@@ -1,4 +1,4 @@
-package com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.command.pwi.classes;
+package com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.command.pwikingdom;
 
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommand;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandCategory;
@@ -11,7 +11,6 @@ import com.github.ArthurSchiavom.pwassistant.boundary.commands.validations.Valid
 import com.github.ArthurSchiavom.pwassistant.boundary.utils.ChoiceUtils;
 import com.github.ArthurSchiavom.pwassistant.boundary.utils.RoleUtils;
 import com.github.ArthurSchiavom.pwassistant.entity.PwiClass;
-import com.github.ArthurSchiavom.shared.control.config.GlobalConfig;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
@@ -22,6 +21,8 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.util.List;
 
+import static com.github.ArthurSchiavom.pwassistant.boundary.BoundaryConfig.MAIN_SERVER_INVITE_URL;
+
 @ApplicationScoped
 public class GetClassRoleCommand implements SlashCommand {
     private static final String NAME = "role";
@@ -31,23 +32,21 @@ public class GetClassRoleCommand implements SlashCommand {
 
     @Inject
     Validations validations;
-    @Inject
-    GlobalConfig config;
     final PwiClassChoices pwiServerChoices = new PwiClassChoices();
 
     @Override
     public SlashCommandInfo getSlashCommandInfo() {
-        return new SlashCommandInfo(new SlashCommandPath(SlashCommandNames.PWI, SlashCommandSubgroups.CLASS, NAME),
+        return new SlashCommandInfo(new SlashCommandPath(SlashCommandNames.PWI_KINGDOM, SlashCommandSubgroups.CLASS, NAME),
                 DESCRIPTION,
                 true,
                 List.of(new OptionData(OptionType.STRING, OPTION_CLASS_NAME, "Your class, such as Blademaster, Barbarian, Cleric, etc.", true, true)),
-                SlashCommandCategory.PWI);
+                SlashCommandCategory.PWI_KINGDOM);
     }
 
     @Override
     public void execute(final SlashCommandInteractionEvent event) {
         if (!validations.usedInMainServer(event)) {
-            event.reply("This command is only usable in my home server, PWI Kingdom.").queue();
+            event.reply("This command is only usable in my home server, [PWI Kingdom](" + MAIN_SERVER_INVITE_URL + ")!").queue();
             return;
         }
         if (event.getOptions().isEmpty()) {

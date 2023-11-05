@@ -6,16 +6,19 @@ import com.github.ArthurSchiavom.old.events.EventsManager;
 import com.github.ArthurSchiavom.old.information.Bot;
 import com.github.ArthurSchiavom.old.information.admins.AdminsManager;
 import com.github.ArthurSchiavom.old.information.clocks.ClockRegister;
-import com.github.ArthurSchiavom.old.information.ownerconfiguration.*;
-import com.github.ArthurSchiavom.old.information.ownerconfiguration.pwiItems.PWIItems;
+import com.github.ArthurSchiavom.old.information.ownerconfiguration.Commands;
+import com.github.ArthurSchiavom.old.information.ownerconfiguration.Embeds;
+import com.github.ArthurSchiavom.old.information.ownerconfiguration.Guilds;
+import com.github.ArthurSchiavom.old.information.ownerconfiguration.Misc;
+import com.github.ArthurSchiavom.old.information.ownerconfiguration.Users;
 import com.github.ArthurSchiavom.old.information.ownerconfiguration.roles.Roles;
 import com.github.ArthurSchiavom.old.information.triggers.TriggerRegister;
-import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.requests.GatewayIntent;
 import com.github.ArthurSchiavom.old.questionnaire.base.QuestionnaireRegister;
 import com.github.ArthurSchiavom.old.timer.HalfMinutely;
 import com.github.ArthurSchiavom.old.timer.Minutely;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.Activity;
+import net.dv8tion.jda.api.requests.GatewayIntent;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -55,9 +58,9 @@ public class Bootstrap {
             return false;
         if (!loadConfigFile())
             return false;
-        if (!loadPWIItems()) {
-            return false;
-        }
+//        if (!loadPWIItems()) {
+//            return false;
+//        }
         /** LOAD CONFIG FILES */
 
         /** LOAD CLASS INFO/SINGLETONS */
@@ -203,21 +206,4 @@ public class Bootstrap {
         return cfg.split("\"")[1];
     }
 
-    private static boolean loadPWIItems() {
-        String[] itemInfo;
-        {
-            try (BufferedReader br = new BufferedReader(new FileReader(PWI_ITEMS_FILE_NAME))) {
-
-                for (int i = 0; i < 28701; i++) {
-                    itemInfo = br.readLine().split(";");
-                    PWIItems.addItem(itemInfo[0], itemInfo[1]);
-                }
-            } catch (Exception e) {
-                System.out.println("FAILED TO LOAD PWI ITEMS");
-                e.printStackTrace();
-                return false;
-            }
-        }
-        return true;
-    }
 }

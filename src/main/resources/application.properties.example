@@ -30,3 +30,6 @@ discord.bot.activity.description = YOUR BEST ASSISTANT!
 
 ######## COMMANDS
 discord.bot.registercommands=false
+
+######## PWI
+pwi.itemsfilename = ItemIDList.cfg

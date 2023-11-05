@@ -1,4 +1,4 @@
-package com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.command.pwi.server;
+package com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.command.pwikingdom;
 
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommand;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandCategory;
@@ -22,6 +22,8 @@ import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.util.List;
 
+import static com.github.ArthurSchiavom.pwassistant.boundary.BoundaryConfig.BOT_INVITE_URL;
+
 @ApplicationScoped
 public class GetServerRoleCommand implements SlashCommand {
     private static final String NAME = "role";
@@ -37,17 +39,17 @@ public class GetServerRoleCommand implements SlashCommand {
 
     @Override
     public SlashCommandInfo getSlashCommandInfo() {
-        return new SlashCommandInfo(new SlashCommandPath(SlashCommandNames.PWI, SlashCommandSubgroups.SERVER, NAME),
+        return new SlashCommandInfo(new SlashCommandPath(SlashCommandNames.PWI_KINGDOM, SlashCommandSubgroups.SERVER, NAME),
                 DESCRIPTION,
                 true,
                 List.of(new OptionData(OptionType.STRING, OPTION_SERVER_NAME, "ET, TT, TI or DA", true, true)),
-                SlashCommandCategory.PWI);
+                SlashCommandCategory.PWI_KINGDOM);
     }
 
     @Override
     public void execute(final SlashCommandInteractionEvent event) {
         if (!validations.usedInMainServer(event)) {
-            event.reply("This command is only usable in my home server, PWI Kingdom.").queue();
+            event.reply("This command is only usable in my home server, [PWI Kingdom](" + BOT_INVITE_URL + ").").queue();
             return;
         }
         if (event.getOptions().isEmpty()) {

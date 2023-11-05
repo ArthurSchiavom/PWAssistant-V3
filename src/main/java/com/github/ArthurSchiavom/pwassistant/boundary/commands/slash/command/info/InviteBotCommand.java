@@ -8,13 +8,14 @@ import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashComman
 import jakarta.enterprise.context.ApplicationScoped;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 
+import static com.github.ArthurSchiavom.pwassistant.boundary.BoundaryConfig.BOT_INVITE_URL;
+
 @ApplicationScoped
 public class InviteBotCommand implements SlashCommand {
     private static final String NAME = "invite";
     private static final String DESCRIPTION = "Invite me (" + Bot.NAME + ") to your server!";
 
-    private static final String INVITE_URL = "[Invite](https://discord.com/oauth2/authorize?client_id=377542452493680660&scope=bot&permissions=416745512256)";
-    private static final String INVITE_MESSAGE = "You can invite me to your server by clicking on " + INVITE_URL + "!";
+    private static final String INVITE_MESSAGE = "You can invite me to your server by clicking on [Invite](" + BOT_INVITE_URL + ")!";
 
     @Override
     public SlashCommandInfo getSlashCommandInfo() {

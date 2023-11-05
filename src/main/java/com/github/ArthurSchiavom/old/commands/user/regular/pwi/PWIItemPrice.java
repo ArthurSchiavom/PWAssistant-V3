@@ -2,13 +2,10 @@ package com.github.ArthurSchiavom.old.commands.user.regular.pwi;
 
 import com.github.ArthurSchiavom.old.commands.base.Category;
 import com.github.ArthurSchiavom.old.commands.base.CommandWithoutSubCommands;
-import com.github.ArthurSchiavom.pwassistant.entity.PwiServer;
 import com.github.ArthurSchiavom.old.information.ownerconfiguration.Commands;
-import com.github.ArthurSchiavom.old.information.ownerconfiguration.pwiItems.PWIItems;
+import com.github.ArthurSchiavom.pwassistant.entity.PwiServer;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-
-import java.util.List;
 
 public class PWIItemPrice extends CommandWithoutSubCommands {
 	public PWIItemPrice() {
@@ -59,21 +56,21 @@ public class PWIItemPrice extends CommandWithoutSubCommands {
 			return;
 		}
 
-		List<com.github.ArthurSchiavom.old.information.ownerconfiguration.pwiItems.PWIItem> pwiItems = PWIItems.getMatchingItems(itemName);
-		int nResults = pwiItems.size();
-		if (pwiItems.size() > 10) {
-			channel.sendMessage("More than 10 results! Try again but be more specific.").queue();
-		}
-		else if (nResults < 1) {
-			channel.sendMessage("No items found by the name of **" + itemName + "**").queue();
-		}
-		else {
-			StringBuilder resultSB = new StringBuilder();
-			for (com.github.ArthurSchiavom.old.information.ownerconfiguration.pwiItems.PWIItem item : pwiItems) {
-				resultSB.append("\n__").append(item.getName()).append("__: <")
-						.append(item.getPriceLink(pwiServer)).append(">");
-			}
-			channel.sendMessage(resultSB.toString()).queue();
-		}
+//		List<PwiItemDto> pwiItemDtos = PWIItemService.getMatchingItems(itemName);
+//		int nResults = pwiItemDtos.size();
+//		if (pwiItemDtos.size() > 10) {
+//			channel.sendMessage("More than 10 results! Try again but be more specific.").queue();
+//		}
+//		else if (nResults < 1) {
+//			channel.sendMessage("No items found by the name of **" + itemName + "**").queue();
+//		}
+//		else {
+//			StringBuilder resultSB = new StringBuilder();
+//			for (PwiItemDto item : pwiItemDtos) {
+//				resultSB.append("\n__").append(item.getName()).append("__: <")
+//						.append(item.getPriceLink(pwiServer)).append(">");
+//			}
+//			channel.sendMessage(resultSB.toString()).queue();
+//		}
 	}
 }
