@@ -28,7 +28,7 @@ public class GetFreeGameNotificationRoleCommand implements SlashCommand {
     public SlashCommandInfo getSlashCommandInfo() {
         return new SlashCommandInfo(new SlashCommandPath(SlashCommandNames.PWI_KINGDOM, SlashCommandNames.FREE_GAMES, NAME),
                 DESCRIPTION,
-                false,
+                true,
                 null,
                 SlashCommandCategory.INFO);
     }

@@ -48,7 +48,10 @@ public class CommandManager {
                 newCommandDataList.add(commandData);
             }
             else if (commandData.isGuildOnly() != info.isGuildOnly()) {
-                throw new IllegalArgumentException("More than one subcommand was registered and their isGuildOnly option differ.");
+                throw new IllegalArgumentException("More than one subcommand was registered and their isGuildOnly option differ. " +
+                        "Name: " + info.getPath().getName() +
+                        ", Subgroup: " + info.getPath().getSubGroupName() +
+                        ", Subcommand: " + info.getPath().getSubCommandName());
             }
 
             SubcommandData subcommandData = createSubcommandData(info);
