@@ -71,7 +71,7 @@ public class MetricsHiddenCommand implements HiddenCommand {
     private String buildCountDisplay(JDA jda) {
         StringBuilder sb = new StringBuilder();
         final List<Guild> guilds = jda.getGuilds();
-        final int userCount = guilds.stream().map(Guild::getMemberCount).reduce(0, Integer::sum);
+        final int userCount = guilds.stream().map(g -> g.loadMembers().get().size()).reduce(0, Integer::sum);
         sb.append("I'm in **").append(guilds.size()).append("** guilds, serving **")
                 .append(userCount).append("** users!");
         return sb.toString();
