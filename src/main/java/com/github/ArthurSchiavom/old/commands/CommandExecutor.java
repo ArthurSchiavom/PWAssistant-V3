@@ -3,41 +3,12 @@ package com.github.ArthurSchiavom.old.commands;
 import com.github.ArthurSchiavom.old.commands.base.Category;
 import com.github.ArthurSchiavom.old.commands.base.Command;
 import com.github.ArthurSchiavom.old.commands.base.Requirement;
-import com.github.ArthurSchiavom.old.commands.user.admin.moderation.clear.Clear;
-import com.github.ArthurSchiavom.old.commands.user.admin.pwi.addClock.CreatePWIClock;
-import com.github.ArthurSchiavom.old.commands.user.admin.utilities.countdown.Countdown;
-import com.github.ArthurSchiavom.old.commands.user.admin.utilities.schedule.Schedule;
-import com.github.ArthurSchiavom.old.commands.user.admin.utilities.trigger.Trigger;
-import com.github.ArthurSchiavom.old.commands.user.owner.fun.stream.Stream;
-import com.github.ArthurSchiavom.old.commands.user.owner.utils.broadcastToOwners.BroadcastToOwners;
-import com.github.ArthurSchiavom.old.commands.user.owner.utils.manageServers.ManageServers;
-import com.github.ArthurSchiavom.old.commands.user.regular.configuration.toggle.free.games.notification.ToggleFreeGamesNotification;
-import com.github.ArthurSchiavom.old.commands.user.regular.configuration.toggleNSFW.ToggleNSFW;
-import com.github.ArthurSchiavom.old.commands.user.regular.fun.lmgtfy.LMGTFY;
-import com.github.ArthurSchiavom.old.commands.user.regular.fun.randomNumber.RandomNumber;
-import com.github.ArthurSchiavom.old.commands.user.regular.fun.say.Say;
-import com.github.ArthurSchiavom.old.commands.user.regular.info.about.About;
-import com.github.ArthurSchiavom.old.commands.user.regular.info.help.Help;
-import com.github.ArthurSchiavom.old.commands.user.regular.info.invite.Invite;
-import com.github.ArthurSchiavom.old.commands.user.regular.info.ping.Ping;
-import com.github.ArthurSchiavom.old.commands.user.regular.info.support.Support;
-import com.github.ArthurSchiavom.old.commands.user.regular.pwi.Codes;
-import com.github.ArthurSchiavom.old.commands.user.regular.pwi.PWIClass;
-import com.github.ArthurSchiavom.old.commands.user.regular.pwi.PWIItemInfo;
-import com.github.ArthurSchiavom.old.commands.user.regular.pwi.PWIItemPrice;
-import com.github.ArthurSchiavom.old.commands.user.regular.pwi.PWIServer;
-import com.github.ArthurSchiavom.old.commands.user.regular.pwi.PWIServerStatus;
-import com.github.ArthurSchiavom.old.commands.user.regular.pwi.PWIServerTime;
-import com.github.ArthurSchiavom.old.commands.user.regular.utilities.MemberCount.MemberCount;
-import com.github.ArthurSchiavom.old.commands.user.regular.utilities.google.Google;
-import com.github.ArthurSchiavom.old.commands.user.regular.utilities.react.React;
-import com.github.ArthurSchiavom.old.commands.user.regular.utilities.serverInfo.ServerInfo;
 import com.github.ArthurSchiavom.old.information.ownerconfiguration.Commands;
 import com.github.ArthurSchiavom.old.information.ownerconfiguration.Embeds;
+import com.github.ArthurSchiavom.old.utils.Utils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.utils.messages.MessageCreateData;
-import com.github.ArthurSchiavom.old.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,46 +44,46 @@ public class CommandExecutor {
 			instance = new CommandExecutor();
 		}
 
-		instance.registerCommand(new About());
-		instance.registerCommand(new Invite());
-		instance.registerCommand(new React());
-		instance.registerCommand(new Help());
-		instance.registerCommand(new Support());
-//		instance.registerCommand(new Donate());
-		instance.registerCommand(new Ping());
-
-		instance.registerCommand(new Codes());
-		instance.registerCommand(new PWIServerTime());
-		instance.registerCommand(new PWIServerStatus());
-		instance.registerCommand(new PWIItemInfo());
-		instance.registerCommand(new PWIItemPrice());
-		instance.registerCommand(new PWIClass());
-		instance.registerCommand(new PWIServer());
-
-		instance.registerCommand(new ToggleFreeGamesNotification());
-		instance.registerCommand(new ToggleNSFW());
-
-		instance.registerCommand(new ServerInfo());
-		instance.registerCommand(new MemberCount());
-		instance.registerCommand(new Google());
-
-		instance.registerCommand(new LMGTFY());
-		instance.registerCommand(new RandomNumber());
-		instance.registerCommand(new Say());
-
-
-		instance.registerCommand(new Clear());
-		instance.registerCommand(new Schedule());
-		instance.registerCommand(new Trigger());
-		instance.registerCommand(new Countdown());
-
-		instance.registerCommand(new CreatePWIClock());
-
-
-		instance.registerCommand(new ManageServers());
-		instance.registerCommand(new BroadcastToOwners());
-
-		instance.registerCommand(new Stream());
+//		instance.registerCommand(new About());
+//		instance.registerCommand(new Invite());
+//		instance.registerCommand(new React());
+//		instance.registerCommand(new Help());
+//		instance.registerCommand(new Support());
+////		instance.registerCommand(new Donate());
+//		instance.registerCommand(new Ping());
+//
+//		instance.registerCommand(new Codes());
+//		instance.registerCommand(new PWIServerTime());
+//		instance.registerCommand(new PWIServerStatus());
+//		instance.registerCommand(new PWIItemInfo());
+//		instance.registerCommand(new PWIItemPrice());
+//		instance.registerCommand(new PWIClass());
+//		instance.registerCommand(new PWIServer());
+//
+//		instance.registerCommand(new ToggleFreeGamesNotification());
+//		instance.registerCommand(new ToggleNSFW());
+//
+//		instance.registerCommand(new ServerInfo());
+//		instance.registerCommand(new MemberCount());
+//		instance.registerCommand(new Google());
+//
+//		instance.registerCommand(new LMGTFY());
+//		instance.registerCommand(new RandomNumber());
+//		instance.registerCommand(new Say());
+//
+//
+//		instance.registerCommand(new Clear());
+//		instance.registerCommand(new Schedule());
+//		instance.registerCommand(new Trigger());
+//		instance.registerCommand(new Countdown());
+//
+//		instance.registerCommand(new CreatePWIClock());
+//
+//
+//		instance.registerCommand(new ManageServers());
+//		instance.registerCommand(new BroadcastToOwners());
+//
+//		instance.registerCommand(new Stream());
 
 //		instance.registerCommand(new Music());
 		instance.updateAllHelp();

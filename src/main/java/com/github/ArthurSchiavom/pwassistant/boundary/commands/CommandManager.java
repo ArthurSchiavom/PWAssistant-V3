@@ -76,6 +76,9 @@ public class CommandManager {
     private SlashCommandData createCommandData(SlashCommandInfo info) {
         final SlashCommandData commandData = Commands.slash(info.getPath().getName(), info.getDescription());
         commandData.setGuildOnly(info.isGuildOnly());
+        if (info.getDefaultMemberPermissions() != null) {
+            commandData.setDefaultPermissions(info.getDefaultMemberPermissions());
+        }
 
         if (info.isNotSubcommand()) {
             if (info.hasOptions()) {

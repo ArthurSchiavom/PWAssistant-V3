@@ -3,7 +3,11 @@ package com.github.ArthurSchiavom.pwassistant.boundary.commands.slash;
 import lombok.Getter;
 
 public enum SlashCommandCategory {
-    INFO("❓ Information"), PWI("🎮 PWI"), PWI_KINGDOM("💖 PWI Kingdom"), FUN("\uD83D\uDE04 Fun");
+    PWI_KINGDOM("💖 PWI Kingdom"),
+    PWI("🎮 PWI"),
+    INFO("❓ Information"),
+    FUN("\uD83D\uDE04 Fun"),
+    ADMIN("\uD83D\uDEE0\uFE0F Administration");
 
     @Getter
     private final String displayName;
