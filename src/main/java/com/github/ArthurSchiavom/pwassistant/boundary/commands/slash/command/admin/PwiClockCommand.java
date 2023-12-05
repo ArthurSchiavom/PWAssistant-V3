@@ -11,6 +11,7 @@ import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.choices.Pwi
 import com.github.ArthurSchiavom.pwassistant.control.pwi.PwiServerService;
 import com.github.ArthurSchiavom.pwassistant.entity.PwiClock;
 import com.github.ArthurSchiavom.pwassistant.entity.PwiServer;
+import com.github.ArthurSchiavom.shared.control.config.GlobalConfig;
 import io.quarkus.scheduler.Scheduled;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -57,6 +58,8 @@ public class PwiClockCommand implements SlashCommand {
     PwiServerService serverService;
     @Inject
     JdaProvider jdaProvider;
+    @Inject
+    GlobalConfig globalConfig;
 
     @Override
     public void execute(final SlashCommandInteractionEvent event) {
@@ -123,6 +126,10 @@ public class PwiClockCommand implements SlashCommand {
     // At every minute from 0 through 59
     @Scheduled(cron = "0 0-59 * * * ?")
     void updateClocks() {
+        if (globalConfig.isTestBot()) {
+            return;
+        }
+
         final JDA jda = jdaProvider.getJda();
         final Map<Set<PwiServer>, MessageEditData> messages = new HashMap<>();
         final List<PwiClock> clocks = serverService.getAllPwiClocks();

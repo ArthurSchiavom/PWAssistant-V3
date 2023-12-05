@@ -25,4 +25,8 @@ public class GlobalConfig {
     @ConfigProperty(name = "discord.botowner.id")
     Long botOwnerId;
 
+    @Getter
+    @ConfigProperty(name = "testmode")
+    boolean isTestBot;
+
 }

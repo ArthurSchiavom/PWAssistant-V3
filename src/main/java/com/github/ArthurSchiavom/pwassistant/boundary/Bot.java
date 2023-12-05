@@ -25,10 +25,6 @@ public class Bot {
     @Inject
     JdaProvider jdaProvider;
 
-    @Getter
-    @ConfigProperty(name = "testmode")
-    boolean isTestBot;
-
     @ConfigProperty(name = "discord.bot.token")
     String token;
     @ConfigProperty(name = "discord.bot.registercommands", defaultValue = "true")
