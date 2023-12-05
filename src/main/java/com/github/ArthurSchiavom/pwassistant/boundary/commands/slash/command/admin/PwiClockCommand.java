@@ -98,7 +98,7 @@ public class PwiClockCommand implements SlashCommand {
                         new OptionData(OptionType.STRING, OPTION_NAME_SERVER2, "server2", false, true),
                         new OptionData(OptionType.STRING, OPTION_NAME_SERVER3, "server3", false, true),
                         new OptionData(OptionType.STRING, OPTION_NAME_SERVER4, "server4", false, true)),
-                SlashCommandCategory.ADMIN,
+                SlashCommandCategory.PWI,
                 DefaultMemberPermissions.enabledFor(Permission.MESSAGE_MANAGE));
     }
 
