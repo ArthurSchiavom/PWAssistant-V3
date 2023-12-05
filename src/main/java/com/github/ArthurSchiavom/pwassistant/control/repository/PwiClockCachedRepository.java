@@ -4,12 +4,14 @@ import com.github.ArthurSchiavom.pwassistant.entity.PwiClock;
 import com.github.ArthurSchiavom.shared.control.repository.CachedRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
-public class PwiClockCachedRepository extends CachedRepository<PwiClock> {
+@Transactional
+public class PwiClockCachedRepository extends CachedRepository<PwiClock> implements InitializableCachedRepo {
 
     @Inject
     PwiClockRepository repo;

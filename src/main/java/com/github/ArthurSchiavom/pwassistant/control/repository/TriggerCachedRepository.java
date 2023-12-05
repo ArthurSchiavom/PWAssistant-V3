@@ -4,9 +4,11 @@ import com.github.ArthurSchiavom.pwassistant.entity.Trigger;
 import com.github.ArthurSchiavom.shared.control.repository.CachedRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 @ApplicationScoped
-public class TriggerCachedRepository extends CachedRepository<Trigger> {
+@Transactional
+public class TriggerCachedRepository extends CachedRepository<Trigger> implements InitializableCachedRepo {
 
     @Inject
     TriggerRepository repo;

@@ -13,7 +13,7 @@ create table pwi_clock
     id bigint NOT NULL AUTO_INCREMENT,
     server_id bigint,
     channel_id bigint,
-    msg_id bigint,
+    message_id bigint,
     servers text,
     PRIMARY KEY (id)
 );
@@ -32,7 +32,7 @@ create table scheduled_message
     PRIMARY KEY (id)
 );
 
-create table trigger
+create table trigger_table
 (
     id bigint NOT NULL AUTO_INCREMENT,
     server_id bigint,

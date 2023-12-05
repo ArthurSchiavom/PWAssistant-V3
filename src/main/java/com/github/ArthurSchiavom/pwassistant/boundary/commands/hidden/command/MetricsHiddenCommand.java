@@ -1,7 +1,7 @@
 package com.github.ArthurSchiavom.pwassistant.boundary.commands.hidden.command;
 
 
-import com.github.ArthurSchiavom.pwassistant.boundary.Bot;
+import com.github.ArthurSchiavom.pwassistant.boundary.JdaProvider;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.hidden.HiddenCommand;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -23,7 +23,7 @@ public class MetricsHiddenCommand implements HiddenCommand {
     private static final String FULL_SUBCOMMAND = "pw metrics full";
 
     @Inject
-    Bot bot;
+    JdaProvider jdaProvider;
 
     @Override
     public String getName() {
@@ -35,10 +35,10 @@ public class MetricsHiddenCommand implements HiddenCommand {
         final String message = event.getMessage().getContentRaw().toLowerCase();
         String reply;
         if (message.equals(COUNT_SUBCOMMAND)) {
-            reply = buildCountDisplay(bot.getJda());
+            reply = buildCountDisplay(jdaProvider.getJda());
         }
         else if (message.equals(FULL_SUBCOMMAND)) {
-            reply = buildFullDisplay(bot.getJda());
+            reply = buildFullDisplay(jdaProvider.getJda());
         } else {
             return false;
         }

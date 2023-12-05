@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 @Converter
 public class PwiServerSetConverter implements AttributeConverter<Set<PwiServer>, String> {
     private static final String SEPARATOR = "|!#|";
+    private static final String SEPARATOR_REGEX = "\\|!#\\|";
 
     @Override
     public String convertToDatabaseColumn(Set<PwiServer> enums) {
@@ -20,7 +21,7 @@ public class PwiServerSetConverter implements AttributeConverter<Set<PwiServer>,
 
     @Override
     public Set<PwiServer> convertToEntityAttribute(String enumsAsString) {
-        return Set.of(enumsAsString.split(SEPARATOR)).stream()
+        return Set.of(enumsAsString.split(SEPARATOR_REGEX)).stream()
                 .map(s -> PwiServer.valueOf(PwiServer.class, s))
                 .collect(Collectors.toSet());
     }

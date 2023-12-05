@@ -1,9 +1,11 @@
 package com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.command.admin;
 
+import com.github.ArthurSchiavom.pwassistant.boundary.BoundaryConfig;
 import com.github.ArthurSchiavom.pwassistant.boundary.JdaProvider;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommand;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandCategory;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandInfo;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandNames;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandPath;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.choices.PwiServerChoices;
 import com.github.ArthurSchiavom.pwassistant.control.pwi.PwiServerService;
@@ -26,6 +28,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 import net.dv8tion.jda.api.utils.messages.MessageEditData;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,14 +42,13 @@ import static com.github.ArthurSchiavom.pwassistant.boundary.utils.ChoiceUtils.g
 @ApplicationScoped
 @Slf4j
 public class PwiClockCommand implements SlashCommand {
-    private static final String NAME = "clear";
-    private static final String DESCRIPTION = "Create a live clock that shows the time in PWI servers.";
+    private static final String SUBCOMMAND_NAME = "clock";
+    private static final String DESCRIPTION = "Create a live clock that shows the time in PWI servers. (max 10 per server) (admin only)";
     private static final String OPTION_NAME_SERVER1 = "server1";
     private static final String OPTION_NAME_SERVER2 = "server2";
     private static final String OPTION_NAME_SERVER3 = "server3";
     private static final String OPTION_NAME_SERVER4 = "server4";
     private static final Integer MAX_FAILURES = 60 * 24; // 1 day in minutes
-
     private final PwiServerChoices pwiServerChoices = new PwiServerChoices();
 
     private final Map<PwiClock, Integer> updateFailureCounter = new HashMap<>();
@@ -58,12 +60,12 @@ public class PwiClockCommand implements SlashCommand {
 
     @Override
     public void execute(final SlashCommandInteractionEvent event) {
-        final List<PwiServer> servers = Stream.of(pwiServerChoices.getOptionObjectFromPayload(event, OPTION_NAME_SERVER1),
+        final Set<PwiServer> servers = Stream.of(pwiServerChoices.getOptionObjectFromPayload(event, OPTION_NAME_SERVER1),
                         pwiServerChoices.getOptionObjectFromPayload(event, OPTION_NAME_SERVER2),
                         pwiServerChoices.getOptionObjectFromPayload(event, OPTION_NAME_SERVER3),
                         pwiServerChoices.getOptionObjectFromPayload(event, OPTION_NAME_SERVER4))
                 .filter(Objects::nonNull)
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
         if (servers.isEmpty()) {
             servers.addAll(PwiServer.allValues());
         }
@@ -75,20 +77,21 @@ public class PwiClockCommand implements SlashCommand {
                 .setTitle("【ＣＯＯＬ　ＣＬＯＣＫ　ＬＯＡＤＩＮＧ】")
                 .setDescription("This can take up to a minute.")
                 .build();
-        event.replyEmbeds(loadingClockEmbed).queue(msg -> {
+        event.reply("creating").setEphemeral(true).queue();
+        event.getChannel().sendMessageEmbeds(loadingClockEmbed).queue(msg -> {
             final long msgId = msg.getIdLong();
             final PwiClock newCLock = new PwiClock()
                     .setServerId(guildId)
                     .setChannelId(channelId)
                     .setMessageId(msgId)
-                    .setMessageId(msgId);
+                    .setServers(servers);
             serverService.registerPwiClock(newCLock);
         });
     }
 
     @Override
     public SlashCommandInfo getSlashCommandInfo() {
-        return new SlashCommandInfo(new SlashCommandPath(NAME, null, null),
+        return new SlashCommandInfo(new SlashCommandPath(SlashCommandNames.PWI, null, SUBCOMMAND_NAME),
                 DESCRIPTION,
                 true,
                 List.of(new OptionData(OptionType.STRING, OPTION_NAME_SERVER1, "server1 (or leave empty to create for all servers)", false, true),
@@ -96,7 +99,7 @@ public class PwiClockCommand implements SlashCommand {
                         new OptionData(OptionType.STRING, OPTION_NAME_SERVER3, "server3", false, true),
                         new OptionData(OptionType.STRING, OPTION_NAME_SERVER4, "server4", false, true)),
                 SlashCommandCategory.ADMIN,
-                DefaultMemberPermissions.enabledFor(Permission.MESSAGE_HISTORY, Permission.MESSAGE_MANAGE));
+                DefaultMemberPermissions.enabledFor(Permission.MESSAGE_MANAGE));
     }
 
     @Override
@@ -117,8 +120,8 @@ public class PwiClockCommand implements SlashCommand {
         return pwiServerChoices.getAutocompleteChoices(lastUserArg);
     }
 
-    @Scheduled(cron = "0-59 * * * *")
-        // At every minute from 0 through 59
+    // At every minute from 0 through 59
+    @Scheduled(cron = "0 0-59 * * * ?")
     void updateClocks() {
         final JDA jda = jdaProvider.getJda();
         final Map<Set<PwiServer>, MessageEditData> messages = new HashMap<>();
@@ -143,5 +146,22 @@ public class PwiClockCommand implements SlashCommand {
                                 }
                             });
         }
+    }
+
+    private MessageEmbed buildClock(final Set<PwiServer> servers) {
+
+        final StringBuilder descriptionSb = new StringBuilder();
+        for (PwiServer server : servers) {
+            final Calendar serverTime = server.getCurrentTime();
+            descriptionSb.append("\n\n**").append(server.getName()).append("**: ")
+                    .append(serverTime.get(Calendar.HOUR_OF_DAY)).append(":").append(serverTime.get(Calendar.MINUTE));
+        }
+
+        final EmbedBuilder eb = new EmbedBuilder()
+                .setTitle(":clock1: PWI Clock")
+                .setDescription(descriptionSb.toString())
+                .setColor(BoundaryConfig.DEFAULT_EMBED_COLOR);
+
+        return eb.build();
     }
 }
