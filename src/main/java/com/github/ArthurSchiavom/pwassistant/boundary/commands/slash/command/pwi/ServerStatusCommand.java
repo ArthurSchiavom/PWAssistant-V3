@@ -11,6 +11,7 @@ import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashComman
 import com.github.ArthurSchiavom.pwassistant.control.pwi.PwiServerService;
 import com.github.ArthurSchiavom.pwassistant.entity.PwiServer;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.utils.messages.MessageEditData;
@@ -23,7 +24,9 @@ public class ServerStatusCommand implements SlashCommand {
 
     private static final String SUBCOMMAND_NAME = "status";
     private static final String DESCRIPTION = "Check if PWI servers are up";
-    private final PwiServerService pwiServerService = new PwiServerService();
+
+    @Inject
+    PwiServerService pwiServerService;
 
     @Override
     public SlashCommandInfo getSlashCommandInfo() {

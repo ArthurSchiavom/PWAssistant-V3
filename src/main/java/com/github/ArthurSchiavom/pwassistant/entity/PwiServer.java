@@ -37,6 +37,10 @@ public enum PwiServer {
 	 * <br>(2) <b>null</b> if no item matches the name.
 	 */
 	public static PwiServer fromString(String string) {
+		if (string == null) {
+			return null;
+		}
+
 		string = string.toLowerCase();
 		PwiServer server = null;
 		if (string.contains("da"))
@@ -69,6 +73,10 @@ public enum PwiServer {
 		if (string.contains("ti"))
 			pwiServers.add(TIDESWELL);
 		return pwiServers;
+	}
+
+	public static List<PwiServer> allValues() {
+		return List.of(PwiServer.values());
 	}
 
 	public Long getId(GlobalConfig config) {

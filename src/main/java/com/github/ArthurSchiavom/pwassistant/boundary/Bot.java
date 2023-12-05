@@ -20,68 +20,68 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class Bot {
 
-	public static final String NAME = "PWAssistant";
+    public static final String NAME = "PWAssistant";
 
-	@Getter
-	private JDA jda;
+    @Inject
+    JdaProvider jdaProvider;
 
-	@Getter
-	@ConfigProperty(name = "testmode")
-	boolean isTestBot;
+    @Getter
+    @ConfigProperty(name = "testmode")
+    boolean isTestBot;
 
-	@ConfigProperty(name = "discord.bot.token")
-	String token;
-	@ConfigProperty(name = "discord.bot.registercommands", defaultValue = "true")
-	boolean registerCommands;
+    @ConfigProperty(name = "discord.bot.token")
+    String token;
+    @ConfigProperty(name = "discord.bot.registercommands", defaultValue = "true")
+    boolean registerCommands;
 
-	@ConfigProperty(name = "discord.bot.activity.type")
-	String activityType;
-	@ConfigProperty(name = "discord.bot.activity.description")
-	String activityDescription;
+    @ConfigProperty(name = "discord.bot.activity.type")
+    String activityType;
+    @ConfigProperty(name = "discord.bot.activity.description")
+    String activityDescription;
 
-	@Inject
-	CommandManager commandManager;
-	@Inject
-	JdaListener jdaListener;
+    @Inject
+    CommandManager commandManager;
+    @Inject
+    JdaListener jdaListener;
 
-	@SneakyThrows
-	public void init() {
-		if (jda != null) {
-			throw new UnsupportedOperationException("Attempted to start JDA twice");
-		}
+    @SneakyThrows
+    public void init() {
+        if (jdaProvider.getJda() != null) {
+            throw new UnsupportedOperationException("Attempted to start JDA twice");
+        }
 
-		jda = JDABuilder.createDefault(token,
-						GatewayIntent.GUILD_EMOJIS_AND_STICKERS,
-						GatewayIntent.GUILD_MEMBERS,
-						GatewayIntent.GUILD_MESSAGE_REACTIONS,
-						GatewayIntent.GUILD_MESSAGES,
-						GatewayIntent.MESSAGE_CONTENT)
-				.disableCache(CacheFlag.VOICE_STATE, CacheFlag.SCHEDULED_EVENTS)
-				.setActivity(Activity.of(Activity.ActivityType.valueOf(activityType), activityDescription))
-				.addEventListeners(jdaListener)
-				.build().awaitReady();
-		if (registerCommands) {
-			 jda.updateCommands().addCommands(commandManager.getJdaCommands()).complete();
-		}
-	}
+        jdaProvider.setJda(JDABuilder.createDefault(token,
+                        GatewayIntent.GUILD_EMOJIS_AND_STICKERS,
+                        GatewayIntent.GUILD_MEMBERS,
+                        GatewayIntent.GUILD_MESSAGE_REACTIONS,
+                        GatewayIntent.GUILD_MESSAGES,
+                        GatewayIntent.MESSAGE_CONTENT)
+                .disableCache(CacheFlag.VOICE_STATE, CacheFlag.SCHEDULED_EVENTS)
+                .setActivity(Activity.of(Activity.ActivityType.valueOf(activityType), activityDescription))
+                .addEventListeners(jdaListener)
+                .build().awaitReady());
+        if (registerCommands) {
+            jdaProvider.getJda().updateCommands().addCommands(commandManager.getJdaCommands()).complete();
+        }
+    }
 
-	public void shutdown() {
-		try {
-			jda.shutdown();
-			boolean success = jda.awaitShutdown(30, TimeUnit.SECONDS);
-			if (!success) {
-				log.error("JDA took too long to shutdown, forcing");
-				jda.shutdownNow();
-				success = jda.awaitShutdown(30, TimeUnit.SECONDS);
-				if (success) {
-					log.error("JDA was forcefully terminated");
-				}
-				else {
-					log.error("Could not forcefully terminate JDA");
-				}
-			}
-		} catch (InterruptedException e) {
-			log.error("FAILED TO SHUTDOWN JDA", e);
-		}
-	}
+    public void shutdown() {
+		final JDA jda = jdaProvider.getJda();
+        try {
+            jda.shutdown();
+            boolean success = jda.awaitShutdown(30, TimeUnit.SECONDS);
+            if (!success) {
+                log.error("JDA took too long to shutdown, forcing");
+                jda.shutdownNow();
+                success = jda.awaitShutdown(30, TimeUnit.SECONDS);
+                if (success) {
+                    log.error("JDA was forcefully terminated");
+                } else {
+                    log.error("Could not forcefully terminate JDA");
+                }
+            }
+        } catch (InterruptedException e) {
+            log.error("FAILED TO SHUTDOWN JDA", e);
+        }
+    }
 }

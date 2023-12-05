@@ -4,24 +4,24 @@ import com.github.ArthurSchiavom.pwassistant.entity.PwiServer;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Converter
-public class EnumListConverter implements AttributeConverter<List<PwiServer>, String> {
+public class PwiServerSetConverter implements AttributeConverter<Set<PwiServer>, String> {
     private static final String SEPARATOR = "|!#|";
 
     @Override
-    public String convertToDatabaseColumn(List<PwiServer> enums) {
+    public String convertToDatabaseColumn(Set<PwiServer> enums) {
         return enums.stream()
                 .map(e -> e.name())
                 .collect(Collectors.joining(SEPARATOR));
     }
 
     @Override
-    public List<PwiServer> convertToEntityAttribute(String enumsAsString) {
-        return List.of(enumsAsString.split(SEPARATOR)).stream()
+    public Set<PwiServer> convertToEntityAttribute(String enumsAsString) {
+        return Set.of(enumsAsString.split(SEPARATOR)).stream()
                 .map(s -> PwiServer.valueOf(PwiServer.class, s))
-                .toList();
+                .collect(Collectors.toSet());
     }
 }
