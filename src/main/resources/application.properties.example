@@ -13,7 +13,16 @@ quarkus.hibernate-orm.physical-naming-strategy = org.hibernate.boot.model.naming
 
 ################## DISCORD
 
-######## MISC
+######## TOKEN
+discord.bot.token = TOKEN
+
+######## COMMANDS
+discord.bot.registercommands = true
+
+######## PRIVILEGE
+discord.botowner.id = 176379344657055745
+
+######## MAIN SERVER
 discord.mainserver.id = 251460250115375114
 discord.mainserver.role.etherblade.id = 718233182956421162
 discord.mainserver.role.twilighttemple.id = 718236177169252572
@@ -21,16 +30,10 @@ discord.mainserver.role.tideswell.id = 718236344282906666
 discord.mainserver.role.dawnglory.id = 718236488428683327
 discord.mainserver.role.freegames.id = 568475847736950806
 
-######## TOKEN
-discord.bot.token = TOKEN
-
 ######## ACTIVITY
 # Types: PLAYING, STREAMING, LISTENING, WATCHING, CUSTOM_STATUS, COMPETING
 discord.bot.activity.type = CUSTOM_STATUS
 discord.bot.activity.description = YOUR BEST ASSISTANT!
-
-######## COMMANDS
-discord.bot.registercommands=false
 
 ######## PWI
 pwi.itemsfilename = ItemIDList.cfg
