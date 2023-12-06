@@ -1,10 +1,10 @@
 # PWAssistant V3
+[![](https://dcbadge.vercel.app/api/server/b65aDG2?style=flat)](https://discord.gg/b65aDG2)
 
 A Discord bot with Perfect World International related features.
 
 **Add PWAssistant to your server**: [ADD!](https://discord.com/oauth2/authorize?client_id=377542452493680660&scope=bot&permissions=416745512256)
-
-**Join PWIKingdom**: [JOIN!](https://discord.gg/pwi-kingdom-251460250115375114)
+<br>**Join PWIKingdom**: [JOIN!](https://discord.gg/pwi-kingdom-251460250115375114)
 
 ## Examples of commands (non-complete list):
 * /pwi codes - Get a list of active PWI codes
