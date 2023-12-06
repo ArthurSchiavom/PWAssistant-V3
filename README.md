@@ -19,4 +19,4 @@ PWI Kingdom is a Discord server for PWI players to discuss PWI stuff, just hang 
 PWAssistant also provides this server with extra commands and features!
 
 #
-**Need support?** [Join PWAssistant server](https://discord.gg/VzXF6Ep)
+**Need support?** [Join PWAssistant Workshop!](https://discord.gg/VzXF6Ep)
