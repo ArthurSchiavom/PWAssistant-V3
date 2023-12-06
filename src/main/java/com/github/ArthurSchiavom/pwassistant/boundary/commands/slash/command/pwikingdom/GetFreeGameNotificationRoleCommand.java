@@ -30,7 +30,7 @@ public class GetFreeGameNotificationRoleCommand implements SlashCommand {
                 DESCRIPTION,
                 true,
                 null,
-                SlashCommandCategory.INFO);
+                SlashCommandCategory.PWI_KINGDOM);
     }
 
     @Override

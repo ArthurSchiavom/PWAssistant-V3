@@ -1,5 +1,7 @@
 package com.github.ArthurSchiavom.pwassistant.boundary.commands;
 
+import com.github.ArthurSchiavom.pwassistant.boundary.BoundaryConfig;
+import com.github.ArthurSchiavom.pwassistant.boundary.JdaProvider;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommand;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandInfo;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandPath;
@@ -28,6 +30,9 @@ public class CommandManager {
     @All
     List<SlashCommand> slashCommandList;
 
+    @Inject
+    JdaProvider jdaProvider;
+
     private final Map<SlashCommandPath, SlashCommand> slashCommandMap = new HashMap<>();
     private final List<CommandData> commandDataList = new ArrayList<>();
 
@@ -47,8 +52,7 @@ public class CommandManager {
             if (commandData == null) {
                 commandData = createCommandData(info);
                 newCommandDataList.add(commandData);
-            }
-            else if (permissionsDontMatch(commandData, command)) {
+            } else if (permissionsDontMatch(commandData, command)) {
                 throw new IllegalStateException("Commands with different permissions grouped under the same parent command are not allowed. " +
                         "Detected during the registration of command " + command.getSlashCommandInfo().getPath().getFullPath());
             }
@@ -131,6 +135,23 @@ public class CommandManager {
         final SlashCommand command = getSlashCommand(event.getName(), event.getSubcommandGroup(), event.getSubcommandName());
         if (command != null) {
             command.execute(event);
+
+            final String serverName;
+            final String serverId;
+            if (event.getGuild() != null) {
+                serverName = event.getGuild().getName();
+                serverId = event.getGuild().getId();
+            }
+            else {
+                serverName = "DM";
+                serverId = event.getUser().getId();
+            }
+            jdaProvider.getJda().getTextChannelById(BoundaryConfig.COMMAND_LOG_CHANNEL_ID)
+                    .sendMessage(String.format("Command used at **%s**(%s): `%s`",
+                            serverName,
+                            serverId,
+                            event.getCommandString())
+                    ).queue();
         }
     }
 
