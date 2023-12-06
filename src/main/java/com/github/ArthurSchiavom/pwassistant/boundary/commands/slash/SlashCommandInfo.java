@@ -13,7 +13,7 @@ public class SlashCommandInfo implements Comparable<SlashCommandInfo> {
     final private boolean guildOnly;
     final private List<OptionData> options;
     final private SlashCommandCategory category;
-    private DefaultMemberPermissions defaultMemberPermissions;
+    final private DefaultMemberPermissions defaultMemberPermissions;
 
     public SlashCommandInfo(SlashCommandPath path, String description, boolean guildOnly, List<OptionData> options, SlashCommandCategory category) {
         this.path = path;
@@ -21,6 +21,7 @@ public class SlashCommandInfo implements Comparable<SlashCommandInfo> {
         this.guildOnly = guildOnly;
         this.options = options;
         this.category = category;
+        defaultMemberPermissions = DefaultMemberPermissions.ENABLED;
     }
 
     public SlashCommandInfo(SlashCommandPath path, String description, boolean guildOnly, List<OptionData> options, SlashCommandCategory category, DefaultMemberPermissions defaultMemberPermissions) {

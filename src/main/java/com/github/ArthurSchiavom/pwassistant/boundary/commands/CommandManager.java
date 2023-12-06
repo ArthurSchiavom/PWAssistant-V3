@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
@@ -47,11 +48,9 @@ public class CommandManager {
                 commandData = createCommandData(info);
                 newCommandDataList.add(commandData);
             }
-            else if (commandData.isGuildOnly() != info.isGuildOnly()) {
-                throw new IllegalArgumentException("More than one subcommand was registered and their isGuildOnly option differ. " +
-                        "Name: " + info.getPath().getName() +
-                        ", Subgroup: " + info.getPath().getSubGroupName() +
-                        ", Subcommand: " + info.getPath().getSubCommandName());
+            else if (permissionsDontMatch(commandData, command)) {
+                throw new IllegalStateException("Commands with different permissions grouped under the same parent command are not allowed. " +
+                        "Detected during the registration of command " + command.getSlashCommandInfo().getPath().getFullPath());
             }
 
             SubcommandData subcommandData = createSubcommandData(info);
@@ -73,12 +72,16 @@ public class CommandManager {
         return newCommandDataList;
     }
 
+    private boolean permissionsDontMatch(final SlashCommandData commandData, final SlashCommand command) {
+        final SlashCommandInfo info = command.getSlashCommandInfo();
+        return info.isGuildOnly() != commandData.isGuildOnly()
+                || !Objects.equals(info.getDefaultMemberPermissions().getPermissionsRaw(), commandData.getDefaultPermissions().getPermissionsRaw());
+    }
+
     private SlashCommandData createCommandData(SlashCommandInfo info) {
         final SlashCommandData commandData = Commands.slash(info.getPath().getName(), info.getDescription());
         commandData.setGuildOnly(info.isGuildOnly());
-        if (info.getDefaultMemberPermissions() != null) {
-            commandData.setDefaultPermissions(info.getDefaultMemberPermissions());
-        }
+        commandData.setDefaultPermissions(info.getDefaultMemberPermissions());
 
         if (info.isNotSubcommand()) {
             if (info.hasOptions()) {

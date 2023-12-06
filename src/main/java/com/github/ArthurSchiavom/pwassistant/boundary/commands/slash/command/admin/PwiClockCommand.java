@@ -7,6 +7,7 @@ import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashComman
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandInfo;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandNames;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandPath;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandSubgroups;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.choices.PwiServerChoices;
 import com.github.ArthurSchiavom.pwassistant.control.pwi.PwiServerService;
 import com.github.ArthurSchiavom.pwassistant.entity.PwiClock;
@@ -62,6 +63,19 @@ public class PwiClockCommand implements SlashCommand {
     GlobalConfig globalConfig;
 
     @Override
+    public SlashCommandInfo getSlashCommandInfo() {
+        return new SlashCommandInfo(new SlashCommandPath(SlashCommandNames.CREATE, SlashCommandSubgroups.PWI, SUBCOMMAND_NAME),
+                DESCRIPTION,
+                true,
+                List.of(new OptionData(OptionType.STRING, OPTION_NAME_SERVER1, "server1 (or leave empty to create for all servers)", false, true),
+                        new OptionData(OptionType.STRING, OPTION_NAME_SERVER2, "server2", false, true),
+                        new OptionData(OptionType.STRING, OPTION_NAME_SERVER3, "server3", false, true),
+                        new OptionData(OptionType.STRING, OPTION_NAME_SERVER4, "server4", false, true)),
+                SlashCommandCategory.PWI,
+                DefaultMemberPermissions.enabledFor(Permission.MESSAGE_MANAGE));
+    }
+
+    @Override
     public void execute(final SlashCommandInteractionEvent event) {
         final Set<PwiServer> servers = Stream.of(pwiServerChoices.getOptionObjectFromPayload(event, OPTION_NAME_SERVER1),
                         pwiServerChoices.getOptionObjectFromPayload(event, OPTION_NAME_SERVER2),
@@ -90,19 +104,6 @@ public class PwiClockCommand implements SlashCommand {
                     .setServers(servers);
             serverService.registerPwiClock(newCLock);
         });
-    }
-
-    @Override
-    public SlashCommandInfo getSlashCommandInfo() {
-        return new SlashCommandInfo(new SlashCommandPath(SlashCommandNames.PWI, null, SUBCOMMAND_NAME),
-                DESCRIPTION,
-                true,
-                List.of(new OptionData(OptionType.STRING, OPTION_NAME_SERVER1, "server1 (or leave empty to create for all servers)", false, true),
-                        new OptionData(OptionType.STRING, OPTION_NAME_SERVER2, "server2", false, true),
-                        new OptionData(OptionType.STRING, OPTION_NAME_SERVER3, "server3", false, true),
-                        new OptionData(OptionType.STRING, OPTION_NAME_SERVER4, "server4", false, true)),
-                SlashCommandCategory.PWI,
-                DefaultMemberPermissions.enabledFor(Permission.MESSAGE_MANAGE));
     }
 
     @Override
