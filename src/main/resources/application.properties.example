@@ -19,7 +19,7 @@ discord.bot.token = TOKEN
 ######## COMMANDS
 discord.bot.registercommands = true
 
-######## PRIVILEGE
+######## PERMISSIONS
 discord.botowner.id = 176379344657055745
 
 ######## MAIN SERVER
