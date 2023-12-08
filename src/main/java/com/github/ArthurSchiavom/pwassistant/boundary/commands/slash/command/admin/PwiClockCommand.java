@@ -162,7 +162,7 @@ public class PwiClockCommand implements SlashCommand {
         for (PwiServer server : servers) {
             final Calendar serverTime = server.getCurrentTime();
             descriptionSb.append("\n\n**").append(server.getName()).append("**: ")
-                    .append(serverTime.get(Calendar.HOUR_OF_DAY)).append(":").append(serverTime.get(Calendar.MINUTE));
+                    .append(String.format("%tR", serverTime));
         }
 
         final EmbedBuilder eb = new EmbedBuilder()
