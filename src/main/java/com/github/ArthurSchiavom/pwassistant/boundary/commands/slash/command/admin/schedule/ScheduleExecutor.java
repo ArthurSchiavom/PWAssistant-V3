@@ -27,9 +27,9 @@ public class ScheduleExecutor {
     // At every minute from 0 through 59
     @Scheduled(cron = "0 0-59 * * * ?", delay = 60L, delayUnit = TimeUnit.SECONDS)
     void execute() {
-//        if (globalConfig.isTestBot()) { todo uncomment
-//            return;
-//        }
+        if (globalConfig.isTestBot()) {
+            return;
+        }
 
         final LocalDateTime currentTime = LocalDateTime.now(ZoneOffset.UTC);
         final List<ScheduledMessage> schedules = scheduleService.getAllScheduledMessages();
