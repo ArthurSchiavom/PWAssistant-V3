@@ -11,6 +11,7 @@ import jakarta.inject.Inject;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @ApplicationScoped
 public class ScheduleExecutor {
@@ -24,7 +25,7 @@ public class ScheduleExecutor {
     JdaProvider jdaProvider;
 
     // At every minute from 0 through 59
-    @Scheduled(cron = "0 0-59 * * * ?")
+    @Scheduled(cron = "0 0-59 * * * ?", delay = 60L, delayUnit = TimeUnit.SECONDS)
     void execute() {
 //        if (globalConfig.isTestBot()) { todo uncomment
 //            return;
