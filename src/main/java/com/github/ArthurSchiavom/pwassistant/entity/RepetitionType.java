@@ -1,10 +1,12 @@
 package com.github.ArthurSchiavom.pwassistant.entity;
 
 import com.github.ArthurSchiavom.old.utils.Utils;
+import lombok.Getter;
 
 import java.util.Calendar;
 import java.util.List;
 
+@Getter
 public enum RepetitionType {
 	WEEKLY("Weekly"), MONTHLY("Monthly");
 

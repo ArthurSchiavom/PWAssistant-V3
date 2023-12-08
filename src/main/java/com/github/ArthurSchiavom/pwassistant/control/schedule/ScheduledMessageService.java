@@ -43,4 +43,15 @@ public class ScheduledMessageService {
     public void update(final ScheduledMessage scheduledMessage) {
         scheduledMessageRepo.update(scheduledMessage);
     }
+
+    public List<ScheduledMessage> getAllScheduledMessagesForServer(final long serverId) {
+        // We don't have a lot so this is fine. Do add use a hashmap instead if this becomes slow.
+        return scheduledMessageRepo.getAllItems().stream().filter(s -> s.getServerId() == serverId).toList();
+    }
+
+    public void delete(final long serverId, final String scheduleName) {
+        scheduledMessageRepo.getAllItems().stream()
+                .filter(s -> s.getServerId() == serverId && s.getScheduleName().equalsIgnoreCase(scheduleName))
+                .forEach(s -> scheduledMessageRepo.delete(s));
+    }
 }

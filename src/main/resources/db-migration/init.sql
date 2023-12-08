@@ -1,3 +1,4 @@
+
 create table countdown_clock
 (
     id bigint NOT NULL AUTO_INCREMENT,
