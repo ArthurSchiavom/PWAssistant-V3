@@ -1,4 +1,4 @@
-package com.github.ArthurSchiavom.old.questionnaire.base;
+package com.github.ArthurSchiavom.pwassistant.boundary.questionnaire;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
@@ -39,7 +39,7 @@ public class QuestionnaireRegister {
 	}
 
 	/**
-	 * Processes a possible reply to a com.github.ArthurSchiavom.old.questionnaire;
+	 * Processes a possible reply to a com.github.ArthurSchiavom.pwassistant.boundary.questionnaire;
 	 *
 	 * @param event The event that contains the reply.
 	 * @return If it was a reply.

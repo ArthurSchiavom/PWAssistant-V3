@@ -1,6 +1,6 @@
-package com.github.ArthurSchiavom.old.questionnaire.base;
+package com.github.ArthurSchiavom.pwassistant.boundary.questionnaire;
 
-import com.github.ArthurSchiavom.old.questionnaire.base.question.MessageType;
+import com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.question.MessageType;
 
 import java.util.Arrays;
 import java.util.List;

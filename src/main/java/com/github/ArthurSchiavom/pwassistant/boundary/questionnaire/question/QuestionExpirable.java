@@ -1,4 +1,4 @@
-package com.github.ArthurSchiavom.old.questionnaire.base.question;
+package com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.question;
 
 import com.github.ArthurSchiavom.old.timer.operation.checkExpiredQuestions.Expirable;
 

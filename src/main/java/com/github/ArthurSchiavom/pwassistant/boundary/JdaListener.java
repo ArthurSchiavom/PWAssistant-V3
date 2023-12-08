@@ -1,6 +1,8 @@
-package com.github.ArthurSchiavom.pwassistant.boundary.commands;
+package com.github.ArthurSchiavom.pwassistant.boundary;
 
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.CommandManager;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.hidden.HiddenCommandExecutor;
+import com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.QuestionnaireRegister;
 import jakarta.annotation.Nonnull;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -36,6 +38,14 @@ public class JdaListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(@Nonnull final MessageReceivedEvent event) {
+        if (event.getAuthor().isBot()) {
+            return;
+        }
+
+        if (QuestionnaireRegister.getInstance().processPossibleReply(event)) {
+            return;
+        }
+
         hiddenCommandExecutor.process(event);
     }
 }

@@ -1,10 +1,8 @@
 package com.github.ArthurSchiavom.pwassistant.boundary;
 
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.CommandManager;
-import com.github.ArthurSchiavom.pwassistant.boundary.commands.JdaListener;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import lombok.Getter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.JDA;

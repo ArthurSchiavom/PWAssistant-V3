@@ -4,14 +4,13 @@ import com.github.ArthurSchiavom.old.error.Reporter;
 import com.github.ArthurSchiavom.old.information.ownerconfiguration.Channels;
 import com.github.ArthurSchiavom.old.information.ownerconfiguration.Embeds;
 import com.github.ArthurSchiavom.old.information.ownerconfiguration.Guilds;
+import com.github.ArthurSchiavom.old.utils.Security;
+import com.github.ArthurSchiavom.old.utils.Utils;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.entities.channel.concrete.PrivateChannel;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
-import com.github.ArthurSchiavom.old.questionnaire.PWIKingdomWelcome.PWIKingdomWelcomeQuestionnaire;
-import com.github.ArthurSchiavom.old.utils.Security;
-import com.github.ArthurSchiavom.old.utils.Utils;
 
 import java.time.Instant;
 
@@ -31,7 +30,7 @@ public class MemberJoinedEventOperator {
 		if (!verifyAndProcessUser(event, privateChannel, username))
 			return;
 
-		new PWIKingdomWelcomeQuestionnaire().startQuestionnaire(privateChannel, user.getIdLong());
+//		new PWIKingdomWelcomeQuestionnaire().startQuestionnaire(privateChannel, user.getIdLong());
 		Channels.getPwiKingdomGeneralChannel()
 				.sendMessage("Welcome to PWI Kingdom **" + username + "**! Make sure to read <#617691793315725317> to learn the rules and other useful com.github.ArthurSchiavom.old.information! <:ttcute:288020411126644736>")
 				.queue();

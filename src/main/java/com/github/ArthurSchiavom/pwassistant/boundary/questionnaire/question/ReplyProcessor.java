@@ -1,9 +1,9 @@
-package com.github.ArthurSchiavom.old.questionnaire.base.question;
+package com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.question;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 /**
- * Class that processes com.github.ArthurSchiavom.old.questionnaire replies.
+ * Class that processes com.github.ArthurSchiavom.pwassistant.boundary.questionnaire replies.
  */
 public class ReplyProcessor {
 	private final boolean runOnNewThread;

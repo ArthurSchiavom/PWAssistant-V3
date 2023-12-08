@@ -1,4 +1,4 @@
-package com.github.ArthurSchiavom.old.questionnaire.base.question;
+package com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.question;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 

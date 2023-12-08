@@ -1,7 +1,7 @@
 package com.github.ArthurSchiavom.old.events.operators;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import com.github.ArthurSchiavom.old.questionnaire.base.QuestionnaireRegister;
+import com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.QuestionnaireRegister;
 
 public class PrivateMessageEventOperator {
 	public void processMessageReceived(MessageReceivedEvent event) {

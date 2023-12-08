@@ -29,6 +29,7 @@ create table scheduled_message
     schedule_days text,
     hour int,
     minute int,
+    next_execution_time timestamp,
     PRIMARY KEY (id)
 );
 

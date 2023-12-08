@@ -11,6 +11,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -31,4 +32,5 @@ public class ScheduledMessage {
     private List<Integer> scheduleDays;
     private int hour;
     private int minute;
+    private LocalDateTime nextExecutionTime;
 }

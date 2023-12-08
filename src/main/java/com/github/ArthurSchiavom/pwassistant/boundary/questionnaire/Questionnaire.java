@@ -1,11 +1,11 @@
-package com.github.ArthurSchiavom.old.questionnaire.base;
+package com.github.ArthurSchiavom.pwassistant.boundary.questionnaire;
 
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import com.github.ArthurSchiavom.old.questionnaire.base.question.MessageType;
-import com.github.ArthurSchiavom.old.questionnaire.base.question.QuestionManager;
-import com.github.ArthurSchiavom.old.questionnaire.base.question.ReplyProcessorFunc;
+import com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.question.MessageType;
+import com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.question.QuestionManager;
+import com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.question.ReplyProcessorFunc;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,9 +27,9 @@ public abstract class Questionnaire {
 	private List<Message> messagesToDeleteNextQuestion = Collections.synchronizedList(new ArrayList<>());
 
 	/**
-	 * Start this com.github.ArthurSchiavom.old.questionnaire with the default configuration.
+	 * Start this com.github.ArthurSchiavom.pwassistant.boundary.questionnaire with the default configuration.
 	 *
-	 * @param event The event that requested the com.github.ArthurSchiavom.old.questionnaire.
+	 * @param event The event that requested the com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.
 	 */
 	public void startQuestionnaire(MessageChannel channel, long userId) {
 		this.channel = channel;
@@ -43,7 +43,7 @@ public abstract class Questionnaire {
 	}
 
 	/**
-	 * Set the com.github.ArthurSchiavom.old.questionnaire's default configuration such as which messages to delete by default.
+	 * Set the com.github.ArthurSchiavom.pwassistant.boundary.questionnaire's default configuration such as which messages to delete by default.
 	 */
 	protected abstract void setConfiguration();
 
@@ -56,7 +56,7 @@ public abstract class Questionnaire {
 	}
 
 	/**
-	 * Adds a question to this com.github.ArthurSchiavom.old.questionnaire.
+	 * Adds a question to this com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.
 	 *
 	 * @param question The question to ask.
 	 * @param questionReplyProcessorFunc The reply processor.
@@ -70,7 +70,7 @@ public abstract class Questionnaire {
 	 * Processes a reply.
 	 *
 	 * @param event The event containing the reply.
-	 * @return If the event was a com.github.ArthurSchiavom.old.questionnaire target and therefore processed.
+	 * @return If the event was a com.github.ArthurSchiavom.pwassistant.boundary.questionnaire target and therefore processed.
 	 */
 	public boolean processPossibleReply(MessageReceivedEvent event) {
 		if (!isQuestionnaireTarget(event))
@@ -81,10 +81,10 @@ public abstract class Questionnaire {
 	}
 
 	/**
-	 * Verifies if an event is target of this com.github.ArthurSchiavom.old.questionnaire's analysis.
+	 * Verifies if an event is target of this com.github.ArthurSchiavom.pwassistant.boundary.questionnaire's analysis.
 	 *
 	 * @param event The event to analyse.
-	 * @return If the event is target of this com.github.ArthurSchiavom.old.questionnaire's analysis.
+	 * @return If the event is target of this com.github.ArthurSchiavom.pwassistant.boundary.questionnaire's analysis.
 	 */
 	public boolean isQuestionnaireTarget(MessageReceivedEvent event) {
 		return isQuestionnaireTarget(event.getAuthor().getIdLong()
@@ -92,11 +92,11 @@ public abstract class Questionnaire {
 	}
 
 	/**
-	 * Verifies if a user+channel is target of this com.github.ArthurSchiavom.old.questionnaire's analysis.
+	 * Verifies if a user+channel is target of this com.github.ArthurSchiavom.pwassistant.boundary.questionnaire's analysis.
 	 *
 	 * @param userId The user's ID.
 	 * @param channelId The channel's ID.
-	 * @return If the user+channel is target of this com.github.ArthurSchiavom.old.questionnaire's analysis.
+	 * @return If the user+channel is target of this com.github.ArthurSchiavom.pwassistant.boundary.questionnaire's analysis.
 	 */
 	public boolean isQuestionnaireTarget(long userId, long channelId) {
 		return this.userId == userId
@@ -152,9 +152,9 @@ public abstract class Questionnaire {
 
 	/**
 	 * * Deletes the messages queued for deletion on new question.
-	 * <br>* (1) Ends the com.github.ArthurSchiavom.old.questionnaire or (2) asks the question and queues it for deletion if appliable.
+	 * <br>* (1) Ends the com.github.ArthurSchiavom.pwassistant.boundary.questionnaire or (2) asks the question and queues it for deletion if appliable.
 	 *
-	 * @param questionText The question text or null to end the com.github.ArthurSchiavom.old.questionnaire.
+	 * @param questionText The question text or null to end the com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.
 	 */
 	private void questionChanged(String questionText) {
 		deleteMessagesNextQuestion();
@@ -193,7 +193,7 @@ public abstract class Questionnaire {
 	}
 
 	/**
-	 * Adds a message to delete at the end of the com.github.ArthurSchiavom.old.questionnaire.
+	 * Adds a message to delete at the end of the com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.
 	 *
 	 * @param message The message to add.
 	 */
@@ -211,7 +211,7 @@ public abstract class Questionnaire {
 	}
 
 	/**
-	 * Ends this com.github.ArthurSchiavom.old.questionnaire.
+	 * Ends this com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.
 	 */
 	private void endQuestionnaire() {
 		QuestionnaireRegister.getInstance().unregister(this);

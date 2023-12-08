@@ -4,7 +4,7 @@ import com.github.ArthurSchiavom.old.commands.base.Command;
 import com.github.ArthurSchiavom.old.commands.base.CommandWithoutSubCommands;
 import com.github.ArthurSchiavom.old.commands.base.Requirement;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import com.github.ArthurSchiavom.old.questionnaire.trigger.AddTriggerQuestionnaire;
+import com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.questionnaires.trigger.AddTriggerQuestionnaire;
 
 public class TriggerAdd extends CommandWithoutSubCommands {
 	public TriggerAdd(Command superCommand) {

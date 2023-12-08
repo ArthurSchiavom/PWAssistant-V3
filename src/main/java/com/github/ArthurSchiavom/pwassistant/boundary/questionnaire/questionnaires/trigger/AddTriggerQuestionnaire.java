@@ -1,10 +1,10 @@
-package com.github.ArthurSchiavom.old.questionnaire.trigger;
+package com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.questionnaires.trigger;
 
 import com.github.ArthurSchiavom.old.information.triggers.Trigger;
 import com.github.ArthurSchiavom.old.information.triggers.TriggerRegister;
-import com.github.ArthurSchiavom.old.questionnaire.base.Questionnaire;
-import com.github.ArthurSchiavom.old.questionnaire.base.WhenToDeleteMessages;
-import com.github.ArthurSchiavom.old.questionnaire.base.WhichMessagesToDelete;
+import com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.Questionnaire;
+import com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.WhenToDeleteMessages;
+import com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.WhichMessagesToDelete;
 
 public class AddTriggerQuestionnaire extends Questionnaire {
 	String trigger = "ERROR";

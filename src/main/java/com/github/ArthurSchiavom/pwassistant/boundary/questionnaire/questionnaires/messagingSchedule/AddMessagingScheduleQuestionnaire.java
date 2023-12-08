@@ -1,16 +1,16 @@
-package com.github.ArthurSchiavom.old.questionnaire.messagingSchedule;
+package com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.questionnaires.messagingSchedule;
 
-import com.github.ArthurSchiavom.old.information.CacheModificationSuccessState;
-import com.github.ArthurSchiavom.pwassistant.entity.RepetitionType;
 import com.github.ArthurSchiavom.old.information.scheduling.messageSchedule.MessagingScheduler;
 import com.github.ArthurSchiavom.old.information.scheduling.messageSchedule.MessagingSchedulerRegister;
+import com.github.ArthurSchiavom.old.utils.Utils;
+import com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.Questionnaire;
+import com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.WhenToDeleteMessages;
+import com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.WhichMessagesToDelete;
+import com.github.ArthurSchiavom.pwassistant.control.schedule.ScheduledMessageService;
+import com.github.ArthurSchiavom.pwassistant.entity.RepetitionType;
+import com.github.ArthurSchiavom.pwassistant.entity.ScheduledMessage;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.channel.middleman.GuildMessageChannel;
-import net.dv8tion.jda.api.utils.messages.MessageCreateData;
-import com.github.ArthurSchiavom.old.questionnaire.base.Questionnaire;
-import com.github.ArthurSchiavom.old.questionnaire.base.WhenToDeleteMessages;
-import com.github.ArthurSchiavom.old.questionnaire.base.WhichMessagesToDelete;
-import com.github.ArthurSchiavom.old.utils.Utils;
 
 import java.util.List;
 
@@ -22,8 +22,11 @@ public class AddMessagingScheduleQuestionnaire extends Questionnaire {
 	private int[] hourMinute;
 	private String channelId;
 	private String guildId;
-	public AddMessagingScheduleQuestionnaire() {
-		this.addQuestion("What's the schedule name?"
+	private final ScheduledMessageService scheduleService;
+	public AddMessagingScheduleQuestionnaire(ScheduledMessageService scheduleService) {
+		this.scheduleService = scheduleService;
+
+		this.addQuestion("What do you want to call this schedule? The name will identify the schedule so you can manage it later."
 				, event -> {
 					name = event.getMessage().getContentRaw();
 					guildId = event.getGuild().getId();
@@ -110,23 +113,20 @@ public class AddMessagingScheduleQuestionnaire extends Questionnaire {
 
 		this.addQuestion("And finally! What's the message to send?"
 				, event -> {
-					String messageString = event.getMessage().getContentRaw();
-					MessageCreateData message = MessageCreateData.fromContent(messageString);
-					MessagingScheduler messagingScheduler = new MessagingScheduler(name
-							, event.getGuild().getId()
-							, channelId, message, repetitionType, days, hourMinute[0], hourMinute[1]);
-					CacheModificationSuccessState successState = MessagingSchedulerRegister.register(messagingScheduler, true);
-					String reply = "Unknown com.github.ArthurSchiavom.old.error";
-					switch (successState) {
-						case SUCCESS:
-							reply = "Message scheduled! <:png13:489925231356411904>";
-							break;
-						case FAILED_DATABASE_MODIFICATION:
-							reply = "Error! Failed to access my com.github.ArthurSchiavom.old.database! D:";
-							break;
-						case FAILED_CACHE_MODIFICATION:
-							reply = "There's already a schedule with that name!";
-					}
+					final String messageString = event.getMessage().getContentRaw();
+
+					final ScheduledMessage scheduledMessage = new ScheduledMessage();
+					scheduledMessage.setScheduleName(name);
+					scheduledMessage.setServerId(event.getGuild().getIdLong());
+					scheduledMessage.setChannelId(Long.parseLong(channelId));
+					scheduledMessage.setMessage(messageString);
+					scheduledMessage.setRepetitionType(repetitionType);
+					scheduledMessage.setScheduleDays(days);
+					scheduledMessage.setHour(hourMinute[0]);
+					scheduledMessage.setMinute(hourMinute[1]);
+					scheduleService.addSchedule(scheduledMessage);
+
+					final String reply = "Message scheduled! <:png13:489925231356411904>";
 					event.getChannel().sendMessage(reply).queue();
 					this.nextQuestion();
 				}

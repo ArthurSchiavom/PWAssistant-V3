@@ -1,8 +1,8 @@
-package com.github.ArthurSchiavom.old.questionnaire.exampleQuestionnaire;
+package com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.questionnaires.exampleQuestionnaire;
 
-import com.github.ArthurSchiavom.old.questionnaire.base.Questionnaire;
-import com.github.ArthurSchiavom.old.questionnaire.base.WhenToDeleteMessages;
-import com.github.ArthurSchiavom.old.questionnaire.base.WhichMessagesToDelete;
+import com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.Questionnaire;
+import com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.WhenToDeleteMessages;
+import com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.WhichMessagesToDelete;
 
 /**
  * Questionnaire to announce a message.

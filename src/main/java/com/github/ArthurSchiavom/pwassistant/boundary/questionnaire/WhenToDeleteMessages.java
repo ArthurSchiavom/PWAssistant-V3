@@ -1,4 +1,4 @@
-package com.github.ArthurSchiavom.old.questionnaire.base;
+package com.github.ArthurSchiavom.pwassistant.boundary.questionnaire;
 
 import net.dv8tion.jda.api.entities.Message;
 

@@ -1,7 +1,7 @@
-package com.github.ArthurSchiavom.old.questionnaire.base.question;
+package com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.question;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-import com.github.ArthurSchiavom.old.questionnaire.base.Questionnaire;
+import com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.Questionnaire;
 import com.github.ArthurSchiavom.old.timer.operation.checkExpiredQuestions.ExpirablesChecker;
 
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class QuestionManager {
 	}
 
 	/**
-	 * Adds a question to this com.github.ArthurSchiavom.old.questionnaire.
+	 * Adds a question to this com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.
 	 *
 	 * @param question The question to ask.
 	 * @param questionReplyProcessorFunc The reply processor.

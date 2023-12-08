@@ -13,7 +13,7 @@ import com.github.ArthurSchiavom.old.information.ownerconfiguration.Misc;
 import com.github.ArthurSchiavom.old.information.ownerconfiguration.Users;
 import com.github.ArthurSchiavom.old.information.ownerconfiguration.roles.Roles;
 import com.github.ArthurSchiavom.old.information.triggers.TriggerRegister;
-import com.github.ArthurSchiavom.old.questionnaire.base.QuestionnaireRegister;
+import com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.QuestionnaireRegister;
 import com.github.ArthurSchiavom.old.timer.HalfMinutely;
 import com.github.ArthurSchiavom.old.timer.Minutely;
 import net.dv8tion.jda.api.JDABuilder;

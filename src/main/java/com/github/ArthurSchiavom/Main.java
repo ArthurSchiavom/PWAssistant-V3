@@ -2,6 +2,7 @@ package com.github.ArthurSchiavom;
 
 import com.github.ArthurSchiavom.pwassistant.boundary.Bot;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.CommandManager;
+import com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.QuestionnaireRegister;
 import com.github.ArthurSchiavom.pwassistant.control.pwi.PwiItemService;
 import com.github.ArthurSchiavom.pwassistant.control.repository.InitializableCachedRepo;
 import com.github.ArthurSchiavom.shared.control.repository.CachedRepository;
@@ -38,6 +39,7 @@ public class Main {
 
         // Mostly order independent, just needs to be done before the bot logs in
         pwiItemService.init();
+        QuestionnaireRegister.initialize();
 
         // Order matters
         repos.forEach(InitializableCachedRepo::init);
