@@ -8,6 +8,7 @@ import jakarta.transaction.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.List;
 
@@ -18,22 +19,20 @@ public class ScheduledMessageService {
     ScheduledMessageCachedRepository scheduledMessageRepo;
 
     public void addSchedule(final ScheduledMessage newScheduledMessage) {
-        newScheduledMessage.setNextExecutionTime(LocalDateTime.now(ZoneOffset.UTC));
+        newScheduledMessage.setNextExecutionTime(LocalDateTime.MIN);
         updateNextExecutionTime(newScheduledMessage, LocalDateTime.now(ZoneOffset.UTC));
         scheduledMessageRepo.create(newScheduledMessage);
     }
 
     public void updateNextExecutionTime(final ScheduledMessage scheduledMessage, final LocalDateTime currentTime) {
-        if (isPastExecutionTime(scheduledMessage, currentTime)) {
-            // Conversion for compatibility with V2 code, as the schedule computation was not rebuilt from scratch :x
-            final Calendar nextExecutionTimeCal = scheduledMessage.getRepetitionType().getNext(scheduledMessage.getScheduleDays(), scheduledMessage.getHour(), scheduledMessage.getMinute());
-            final LocalDateTime nextExecutionTime = LocalDateTime.ofInstant(nextExecutionTimeCal.toInstant(), ZoneOffset.UTC);
-            scheduledMessage.setNextExecutionTime(nextExecutionTime);
-        }
+        // Conversion for compatibility with V2 code, as the schedule computation was not rebuilt from scratch :x
+        final Calendar nextExecutionTimeCal = scheduledMessage.getRepetitionType().getNext(scheduledMessage.getScheduleDays(), scheduledMessage.getHour(), scheduledMessage.getMinute());
+        final LocalDateTime nextExecutionTime = LocalDateTime.ofInstant(nextExecutionTimeCal.toInstant(), ZoneOffset.UTC).truncatedTo(ChronoUnit.MINUTES);
+        scheduledMessage.setNextExecutionTime(nextExecutionTime);
     }
 
     public boolean isPastExecutionTime(final ScheduledMessage scheduledMessage, final LocalDateTime currentTime) {
-        return scheduledMessage.getNextExecutionTime().isAfter(currentTime);
+        return currentTime.isAfter(scheduledMessage.getNextExecutionTime());
     }
 
     public List<ScheduledMessage> getAllScheduledMessages() {

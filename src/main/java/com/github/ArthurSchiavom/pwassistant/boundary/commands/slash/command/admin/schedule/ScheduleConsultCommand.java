@@ -15,8 +15,7 @@ import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 @ApplicationScoped
 public class ScheduleConsultCommand implements SlashCommand {
     private static final String NAME = "consult";
-//    private static final String DESCRIPTION = "Add a trigger. When a trigger text is said, an automatic reply happens. (admin only)";
-    private static final String DESCRIPTION = "[BETA] Consult the schedules configured. (admin only)";
+    private static final String DESCRIPTION = "Consult the schedules configured. (admin only)";
 
     @Inject
     ScheduledMessageService scheduleService;

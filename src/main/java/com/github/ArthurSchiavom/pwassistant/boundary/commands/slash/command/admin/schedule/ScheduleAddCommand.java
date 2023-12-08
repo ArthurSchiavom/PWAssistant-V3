@@ -16,8 +16,7 @@ import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 @ApplicationScoped
 public class ScheduleAddCommand implements SlashCommand {
     private static final String NAME = "add";
-//    private static final String DESCRIPTION = "Add a trigger. When a trigger text is said, an automatic reply happens. (admin only)";
-    private static final String DESCRIPTION = "[BETA] Set a message to be repeated every day/day of the week/month. (admin only)";
+    private static final String DESCRIPTION = "Set a message to be repeated every day/day of the week/month. (admin only)";
 
     @Inject
     ScheduledMessageService scheduleService;
@@ -34,7 +33,7 @@ public class ScheduleAddCommand implements SlashCommand {
 
     @Override
     public void execute(final SlashCommandInteractionEvent event) {
-        event.reply("Please answer the questions to create your trigger ^^").setEphemeral(true).queue();
+        event.reply("Please answer the questions to create your scheduled message ^^").setEphemeral(true).queue();
         new AddMessagingScheduleQuestionnaire(scheduleService).startQuestionnaire(event.getChannel(), event.getUser().getIdLong());
     }
 }

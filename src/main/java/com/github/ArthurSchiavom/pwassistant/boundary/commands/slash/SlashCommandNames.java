@@ -10,4 +10,5 @@ public class SlashCommandNames {
     public static final String FREE_GAMES = "freegames";
     public static final String CREATE = "create";
     public static final String SCHEDULE = "schedule";
+    public static final String TRIGGER = "trigger";
 }

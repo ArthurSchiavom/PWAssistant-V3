@@ -526,9 +526,10 @@ public class Utils {
         timeResult.set(Calendar.SECOND, 0);
         timeResult.set(Calendar.MILLISECOND, 0);
 
-        int dayToday = timeNow.get(Calendar.DAY_OF_MONTH);
-        if (includeToday && daysOfWeek.contains(dayToday) && timeResult.after(timeNow))
+        int dayToday = timeNow.get(Calendar.DAY_OF_WEEK);
+        if (includeToday && daysOfWeek.contains(dayToday) && timeResult.after(timeNow)) {
             return timeResult;
+        }
 
         do {
             timeResult.add(Calendar.DAY_OF_MONTH, 1);

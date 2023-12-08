@@ -62,7 +62,7 @@ public class AddMessagingScheduleQuestionnaire extends Questionnaire {
 				}
 				, false);
 
-		this.addQuestion("Which are the days of the week? (`monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `sunday`)"
+		this.addQuestion("Which are the days of the week in UTC timezone? (`monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `sunday`)"
 				, event -> {
 					days = Utils.getMentionedDaysOfWeek(event.getMessage().getContentRaw());
 					if (days.isEmpty())
@@ -72,7 +72,7 @@ public class AddMessagingScheduleQuestionnaire extends Questionnaire {
 				}
 				, false);
 
-		this.addQuestion("Which are the days of the month? **__Reply with only numbers separated by white spaces!!__** (`1 5 18 30`)" +
+		this.addQuestion("Which are the days of the month in UTC timezone? **__Reply with only numbers separated by white spaces!!__** (`1 5 18 30`)" +
 						"\nNote that if you choose a day that a month doesn't have," +
 						" the closest smaller day will be chosen." +
 						" For example, if you choose day 31 but the month only has 29 days, the message will be sent on day 29."
@@ -86,7 +86,7 @@ public class AddMessagingScheduleQuestionnaire extends Questionnaire {
 				}
 				, false);
 
-		this.addQuestion("What's the time in 24H format? Example: `22:15`"
+		this.addQuestion("What's the time in 24H format and UTC timezone? Example: `22:15`"
 				, event -> {
 					String reply = event.getMessage().getContentRaw();
 					hourMinute = Utils.TimeStringToIntArray(reply);

@@ -19,8 +19,7 @@ import java.util.List;
 @ApplicationScoped
 public class ScheduleRemoveCommand implements SlashCommand {
     private static final String NAME = "remove";
-//    private static final String DESCRIPTION = "Add a trigger. When a trigger text is said, an automatic reply happens. (admin only)";
-    private static final String DESCRIPTION = "[BETA] Remove a scheduled message. (admin only)";
+    private static final String DESCRIPTION = "Remove a scheduled message. (admin only)";
     private static final String OPTION_NAME_SCHEDULE_NAME = "schedule-name";
     private static final String OPTION_DESCRIPTION_SCHEDULE_NAME = "name of the schedule";
 
