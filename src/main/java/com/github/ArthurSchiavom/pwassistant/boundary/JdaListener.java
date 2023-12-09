@@ -2,6 +2,7 @@ package com.github.ArthurSchiavom.pwassistant.boundary;
 
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.CommandManager;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.hidden.HiddenCommandExecutor;
+import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.command.admin.trigger.TriggerExecutor;
 import com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.QuestionnaireRegister;
 import jakarta.annotation.Nonnull;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -22,6 +23,9 @@ public class JdaListener extends ListenerAdapter {
 
     @Inject
     HiddenCommandExecutor hiddenCommandExecutor;
+
+    @Inject
+    TriggerExecutor triggerExecutor;
 
     @Override
     public void onSlashCommandInteraction(@Nonnull final SlashCommandInteractionEvent event) {
@@ -47,5 +51,6 @@ public class JdaListener extends ListenerAdapter {
         }
 
         hiddenCommandExecutor.process(event);
+        triggerExecutor.applyTriggers(event.getGuild().getIdLong(), event.getChannel(), event.getMessage().getContentRaw());
     }
 }
