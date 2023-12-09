@@ -2,7 +2,7 @@
 
 A Discord bot with Perfect World International related features.
 
-**Add PWAssistant to your server**: [ADD!](https://discord.com/oauth2/authorize?client_id=377542452493680660&scope=bot&permissions=416745512256)
+**Add PWAssistant to your server**: [ADD!](https://discord.com/oauth2/authorize?client_id=377542452493680660&scope=bot&permissions=412387634240)
 
 **Join PWIKingdom**: [JOIN!](https://discord.gg/pwi-kingdom-251460250115375114)
 
