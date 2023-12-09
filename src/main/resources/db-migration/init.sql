@@ -38,7 +38,7 @@ create table trigger_table
 (
     id bigint NOT NULL AUTO_INCREMENT,
     server_id bigint,
-    trigger_text text,
+    trigger_text_lowercase text,
     reply text,
     PRIMARY KEY (id)
 );
