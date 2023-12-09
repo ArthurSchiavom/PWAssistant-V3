@@ -57,6 +57,7 @@ public class HelpCommand implements SlashCommand {
                     .toList();
             eb.addField(createCategoryField(value, categoryCommands));
         }
+        eb.setFooter("Admins are considered those that can delete anyone's messages.");
         return eb.build();
     }
 
