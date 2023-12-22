@@ -11,7 +11,7 @@ public class PWIKingdomWelcome {
     @Inject
     GlobalConfig globalConfig;
 
-    public static final String WELCOME_MSG_TEMPLATE = "Welcome to PWI Kingdom %s! Make sure to read <#617691793315725317> to learn the rules and other useful information! <:ttCute:288020411126644736>";
+    public static final String WELCOME_MSG_TEMPLATE = "Welcome to PWI Kingdom **%s**! Make sure to read <#617691793315725317> to learn the rules and other useful information! <:ttCute:288020411126644736>";
 
     public void processGuildMemberJoinEvent(final GuildMemberJoinEvent event) {
         if (!globalConfig.getMainServerId().equals(event.getGuild().getIdLong())) {
