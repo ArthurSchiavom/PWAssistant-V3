@@ -9,6 +9,8 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 public class GlobalConfig {
     @ConfigProperty(name = "discord.mainserver.id")
     Long mainServerId;
+    @ConfigProperty(name = "discord.mainserver.welcome.channelid")
+    Long welcomeChannelId;
 
     @ConfigProperty(name = "discord.mainserver.role.etherblade.id")
     Long roleIdEtherblade;
@@ -28,5 +30,4 @@ public class GlobalConfig {
     @Getter
     @ConfigProperty(name = "testmode")
     boolean isTestBot;
-
 }

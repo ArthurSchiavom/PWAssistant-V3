@@ -4,9 +4,11 @@ import com.github.ArthurSchiavom.pwassistant.boundary.commands.CommandManager;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.hidden.HiddenCommandExecutor;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.command.admin.trigger.TriggerExecutor;
 import com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.QuestionnaireRegister;
+import com.github.ArthurSchiavom.pwassistant.boundary.welcome.PWIKingdomWelcome;
 import jakarta.annotation.Nonnull;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
@@ -26,6 +28,9 @@ public class JdaListener extends ListenerAdapter {
 
     @Inject
     TriggerExecutor triggerExecutor;
+
+    @Inject
+    PWIKingdomWelcome welcomeHandler;
 
     @Override
     public void onSlashCommandInteraction(@Nonnull final SlashCommandInteractionEvent event) {
@@ -52,5 +57,10 @@ public class JdaListener extends ListenerAdapter {
 
         hiddenCommandExecutor.process(event);
         triggerExecutor.applyTriggers(event.getGuild().getIdLong(), event.getChannel(), event.getMessage().getContentRaw());
+    }
+
+    @Override
+    public void onGuildMemberJoin(@Nonnull final GuildMemberJoinEvent event) {
+        welcomeHandler.processGuildMemberJoinEvent(event);
     }
 }
