@@ -55,7 +55,13 @@ public class ClearCommand implements SlashCommand {
         }
 
         final OptionMapping firstMessageIdOptionMapping = event.getOption(OPTION_NAME_FIRST_MESSAGE);
-        final long firstMessageId = firstMessageIdOptionMapping != null ? firstMessageIdOptionMapping.getAsLong() : event.getChannel().getLatestMessageIdLong();
+        final long firstMessageId;
+        try {
+            firstMessageId = firstMessageIdOptionMapping != null ? firstMessageIdOptionMapping.getAsLong() : event.getChannel().getIterableHistory().takeAsync(1).get().get(0).getIdLong();
+        } catch (Exception e) {
+            event.reply("Failed to delete message due to unknown error.").setEphemeral(true).queue();
+            return;
+        }
 
         event.reply("Deleting. . .").setEphemeral(true).queue(h1 -> {
             final MessageChannel channel = event.getChannel();
