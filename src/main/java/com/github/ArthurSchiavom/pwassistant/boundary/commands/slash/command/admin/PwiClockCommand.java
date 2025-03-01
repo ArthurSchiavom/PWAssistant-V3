@@ -20,7 +20,9 @@ import lombok.extern.slf4j.Slf4j;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
@@ -142,19 +144,31 @@ public class PwiClockCommand implements SlashCommand {
                 updatedClock = MessageEditData.fromEmbeds(buildClock(servers));
                 messages.put(servers, updatedClock);
             }
-            jda.getGuildById(clock.getServerId())
-                    .getTextChannelById(clock.getChannelId())
-                    .editMessageById(clock.getMessageId(), updatedClock)
-                    .queue(msg -> {
-                                updateFailureCounter.remove(clock);
-                            },
-                            exception -> {
-                                Integer failureCount = updateFailureCounter.computeIfAbsent(clock, k -> 1);
-                                if (failureCount > MAX_FAILURES) {
-                                    serverService.removePwiClock(clock);
-                                }
-                            });
+            Guild guild = jda.getGuildById(clock.getServerId());
+            if (guild == null) {
+                processFailure(clock);
+                return;
+            }
+            TextChannel channel = guild.getTextChannelById(clock.getChannelId());
+            if (channel == null) {
+                processFailure(clock);
+                return;
+            }
+
+            channel.editMessageById(clock.getMessageId(), updatedClock)
+                    .queue(
+                            msg -> updateFailureCounter.remove(clock),
+                            exception -> processFailure(clock));
         }
+    }
+
+    private void processFailure(PwiClock clock) {
+        Integer failureCount = updateFailureCounter.getOrDefault(clock, 0) + 1;
+        updateFailureCounter.put(clock, failureCount);
+        if (failureCount > MAX_FAILURES) {
+            serverService.removePwiClock(clock);
+        }
+        log.warn("Clock ID {} failure count: {}/{}", clock.getId(), failureCount, MAX_FAILURES);
     }
 
     private MessageEmbed buildClock(final Set<PwiServer> servers) {
