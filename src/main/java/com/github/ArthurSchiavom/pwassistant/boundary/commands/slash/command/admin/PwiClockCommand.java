@@ -128,7 +128,7 @@ public class PwiClockCommand implements SlashCommand {
     }
 
     // At every minute from 0 through 59
-    @Scheduled(cron = "0 0-59 * * * ?", delay = 60L, delayUnit = TimeUnit.SECONDS)
+    @Scheduled(cron = "0 0-59 * * * ?", delay = 0, delayUnit = TimeUnit.SECONDS)
     void updateClocks() {
         if (globalConfig.isTestBot()) {
             return;
@@ -146,29 +146,36 @@ public class PwiClockCommand implements SlashCommand {
             }
             Guild guild = jda.getGuildById(clock.getServerId());
             if (guild == null) {
-                processFailure(clock);
-                return;
+                processFailure(clock, null);
+                continue;
             }
             TextChannel channel = guild.getTextChannelById(clock.getChannelId());
             if (channel == null) {
-                processFailure(clock);
-                return;
+                processFailure(clock, null);
+                continue;
             }
 
-            channel.editMessageById(clock.getMessageId(), updatedClock)
-                    .queue(
-                            msg -> updateFailureCounter.remove(clock),
-                            exception -> processFailure(clock));
+            try {
+                channel.editMessageById(clock.getMessageId(), updatedClock).queue(
+                        msg -> updateFailureCounter.remove(clock),
+                        exception -> processFailure(clock, exception));
+            } catch (Exception e) {
+                processFailure(clock, e);
+            }
         }
     }
 
-    private void processFailure(PwiClock clock) {
+    private void processFailure(PwiClock clock, Throwable exception) {
         Integer failureCount = updateFailureCounter.getOrDefault(clock, 0) + 1;
         updateFailureCounter.put(clock, failureCount);
         if (failureCount > MAX_FAILURES) {
             serverService.removePwiClock(clock);
         }
-        log.warn("Clock ID {} failure count: {}/{}", clock.getId(), failureCount, MAX_FAILURES);
+        if (exception != null) {
+            log.warn("Clock ID {} failure count: {}/{}", clock.getId(), failureCount, MAX_FAILURES, exception);
+        } else {
+            log.warn("Clock ID {} failure count: {}/{}", clock.getId(), failureCount, MAX_FAILURES);
+        }
     }
 
     private MessageEmbed buildClock(final Set<PwiServer> servers) {
