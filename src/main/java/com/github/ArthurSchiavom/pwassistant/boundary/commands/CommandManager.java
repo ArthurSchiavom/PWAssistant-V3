@@ -78,13 +78,14 @@ public class CommandManager {
 
     private boolean permissionsDontMatch(final SlashCommandData commandData, final SlashCommand command) {
         final SlashCommandInfo info = command.getSlashCommandInfo();
-        return info.isGuildOnly() != commandData.isGuildOnly()
+        return !info.getInteractionContextType().containsAll(commandData.getContexts())
+                || !commandData.getContexts().containsAll(info.getInteractionContextType())
                 || !Objects.equals(info.getDefaultMemberPermissions().getPermissionsRaw(), commandData.getDefaultPermissions().getPermissionsRaw());
     }
 
     private SlashCommandData createCommandData(SlashCommandInfo info) {
         final SlashCommandData commandData = Commands.slash(info.getPath().getName(), info.getDescription());
-        commandData.setGuildOnly(info.isGuildOnly());
+        commandData.setContexts(info.getInteractionContextType());
         commandData.setDefaultPermissions(info.getDefaultMemberPermissions());
 
         if (info.isNotSubcommand()) {

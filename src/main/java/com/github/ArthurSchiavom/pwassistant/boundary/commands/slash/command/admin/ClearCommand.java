@@ -11,6 +11,7 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.exceptions.InsufficientPermissionException;
+import net.dv8tion.jda.api.interactions.InteractionContextType;
 import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -34,7 +35,7 @@ public class ClearCommand implements SlashCommand {
     public SlashCommandInfo getSlashCommandInfo() {
         return new SlashCommandInfo(new SlashCommandPath(NAME, null, null),
                 DESCRIPTION,
-                true,
+                List.of(InteractionContextType.GUILD),
                 List.of(new OptionData(OptionType.INTEGER, OPTION_NAME_MSG_COUNT, OPTION_DESCRIPTION_MSG_COUNT, true, false),
                         new OptionData(OptionType.STRING, OPTION_NAME_FIRST_MESSAGE, OPTION_DESCRIPTION_FIRST_MESSAGE, false, false)),
                 SlashCommandCategory.ADMIN,

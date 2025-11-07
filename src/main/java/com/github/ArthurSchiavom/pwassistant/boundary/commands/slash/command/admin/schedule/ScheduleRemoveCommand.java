@@ -10,6 +10,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.InteractionContextType;
 import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -30,7 +31,7 @@ public class ScheduleRemoveCommand implements SlashCommand {
     public SlashCommandInfo getSlashCommandInfo() {
         return new SlashCommandInfo(new SlashCommandPath(SlashCommandNames.SCHEDULE, null, NAME),
                 DESCRIPTION,
-                true,
+                List.of(InteractionContextType.GUILD),
                 List.of(new OptionData(OptionType.STRING, OPTION_NAME_SCHEDULE_NAME, OPTION_DESCRIPTION_SCHEDULE_NAME, true, false)),
                 SlashCommandCategory.ADMIN,
                 DefaultMemberPermissions.enabledFor(Permission.MESSAGE_MANAGE));

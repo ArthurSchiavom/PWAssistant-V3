@@ -11,6 +11,7 @@ import com.github.ArthurSchiavom.pwassistant.control.pwi.PwiItemService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.InteractionContextType;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
@@ -30,7 +31,7 @@ public class ItemInfoCommand implements SlashCommand {
     public SlashCommandInfo getSlashCommandInfo() {
         return new SlashCommandInfo(new SlashCommandPath(SlashCommandNames.PWI, SlashCommandSubgroups.ITEM, SUBCOMMAND_NAME),
                 DESCRIPTION,
-                true,
+                List.of(InteractionContextType.GUILD),
                 List.of(new OptionData(OptionType.STRING, OPTION_NAME_ITEM_NAME, OPTION_DESCRIPTION_ITEM_NAME, true, false)),
                 SlashCommandCategory.PWI);
     }

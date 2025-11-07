@@ -16,6 +16,7 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.InteractionContextType;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
@@ -41,7 +42,7 @@ public class GetServerRoleCommand implements SlashCommand {
     public SlashCommandInfo getSlashCommandInfo() {
         return new SlashCommandInfo(new SlashCommandPath(SlashCommandNames.PWI_KINGDOM, SlashCommandSubgroups.SERVER, NAME),
                 DESCRIPTION,
-                true,
+                List.of(InteractionContextType.GUILD),
                 List.of(new OptionData(OptionType.STRING, OPTION_SERVER_NAME, "ET, TT, TI or DA", true, true)),
                 SlashCommandCategory.PWI_KINGDOM);
     }

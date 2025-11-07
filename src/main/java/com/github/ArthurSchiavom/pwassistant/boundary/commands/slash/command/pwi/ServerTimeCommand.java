@@ -12,6 +12,9 @@ import com.github.ArthurSchiavom.pwassistant.entity.PwiServer;
 import jakarta.enterprise.context.ApplicationScoped;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.InteractionContextType;
+
+import java.util.List;
 
 @ApplicationScoped
 public class ServerTimeCommand implements SlashCommand {
@@ -22,7 +25,7 @@ public class ServerTimeCommand implements SlashCommand {
     public SlashCommandInfo getSlashCommandInfo() {
         return new SlashCommandInfo(new SlashCommandPath(SlashCommandNames.PWI, SlashCommandSubgroups.SERVER, SUBCOMMAND_NAME),
                 DESCRIPTION,
-                true,
+                List.of(InteractionContextType.GUILD),
                 null,
                 SlashCommandCategory.PWI);
     }

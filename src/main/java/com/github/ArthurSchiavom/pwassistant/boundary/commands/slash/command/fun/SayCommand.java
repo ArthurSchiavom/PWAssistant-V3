@@ -6,6 +6,7 @@ import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashComman
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandPath;
 import jakarta.enterprise.context.ApplicationScoped;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.InteractionContextType;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
@@ -22,7 +23,7 @@ public class SayCommand implements SlashCommand {
     public SlashCommandInfo getSlashCommandInfo() {
         return new SlashCommandInfo(new SlashCommandPath(NAME, null, null),
                 DESCRIPTION,
-                false,
+                InteractionContextType.ALL,
                 List.of(new OptionData(OptionType.STRING, OPTION_NAME_MESSAGE, OPTION_NAME_DESCRIPTION, true, false)),
                 SlashCommandCategory.FUN);
     }

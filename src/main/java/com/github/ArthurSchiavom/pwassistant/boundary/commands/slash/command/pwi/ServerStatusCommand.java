@@ -14,7 +14,10 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.InteractionContextType;
 import net.dv8tion.jda.api.utils.messages.MessageEditData;
+
+import java.util.List;
 
 import static com.github.ArthurSchiavom.pwassistant.boundary.BoundaryConfig.PWI_ICON_URL;
 import static net.dv8tion.jda.api.utils.messages.MessageCreateData.fromEmbeds;
@@ -32,7 +35,7 @@ public class ServerStatusCommand implements SlashCommand {
     public SlashCommandInfo getSlashCommandInfo() {
         return new SlashCommandInfo(new SlashCommandPath(SlashCommandNames.PWI, SlashCommandSubgroups.SERVER, SUBCOMMAND_NAME),
                 DESCRIPTION,
-                true,
+                List.of(InteractionContextType.GUILD),
                 null,
                 SlashCommandCategory.PWI);
     }

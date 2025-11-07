@@ -108,7 +108,7 @@ public class Bootstrap {
         try {
             Bot.setJdaInstance(JDABuilder.createDefault(loadToken(),
                             GatewayIntent.DIRECT_MESSAGES,
-                            GatewayIntent.GUILD_EMOJIS_AND_STICKERS,
+                            GatewayIntent.GUILD_EXPRESSIONS,
                             GatewayIntent.GUILD_MEMBERS,
                             GatewayIntent.GUILD_MESSAGE_REACTIONS,
                             GatewayIntent.GUILD_MESSAGES,

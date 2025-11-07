@@ -1,33 +1,35 @@
 package com.github.ArthurSchiavom.pwassistant.boundary.commands.slash;
 
 import lombok.Getter;
+import net.dv8tion.jda.api.interactions.InteractionContextType;
 import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
+import java.util.Collection;
 import java.util.List;
 
 @Getter
 public class SlashCommandInfo implements Comparable<SlashCommandInfo> {
     final private SlashCommandPath path;
     final private String description;
-    final private boolean guildOnly;
+    final private Collection<InteractionContextType> interactionContextType;
     final private List<OptionData> options;
     final private SlashCommandCategory category;
     final private DefaultMemberPermissions defaultMemberPermissions;
 
-    public SlashCommandInfo(SlashCommandPath path, String description, boolean guildOnly, List<OptionData> options, SlashCommandCategory category) {
+    public SlashCommandInfo(SlashCommandPath path, String description, Collection<InteractionContextType> interactionContextType, List<OptionData> options, SlashCommandCategory category) {
         this.path = path;
         this.description = description;
-        this.guildOnly = guildOnly;
+        this.interactionContextType = interactionContextType;
         this.options = options;
         this.category = category;
         defaultMemberPermissions = DefaultMemberPermissions.ENABLED;
     }
 
-    public SlashCommandInfo(SlashCommandPath path, String description, boolean guildOnly, List<OptionData> options, SlashCommandCategory category, DefaultMemberPermissions defaultMemberPermissions) {
+    public SlashCommandInfo(SlashCommandPath path, String description, Collection<InteractionContextType> interactionContextType, List<OptionData> options, SlashCommandCategory category, DefaultMemberPermissions defaultMemberPermissions) {
         this.path = path;
         this.description = description;
-        this.guildOnly = guildOnly;
+        this.interactionContextType = interactionContextType;
         this.options = options;
         this.category = category;
         this.defaultMemberPermissions = defaultMemberPermissions;

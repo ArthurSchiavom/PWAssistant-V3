@@ -13,6 +13,7 @@ import jakarta.inject.Inject;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.InteractionContextType;
 
 import java.util.Iterator;
 import java.util.List;
@@ -33,7 +34,7 @@ public class HelpCommand implements SlashCommand {
     public SlashCommandInfo getSlashCommandInfo() {
         return new SlashCommandInfo(new SlashCommandPath(NAME, null, null),
                 DESCRIPTION,
-                false,
+                InteractionContextType.ALL,
                 null,
                 SlashCommandCategory.INFO);
     }

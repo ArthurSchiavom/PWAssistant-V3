@@ -10,7 +10,10 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.InteractionContextType;
 import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
+
+import java.util.List;
 
 @ApplicationScoped
 public class TriggerConsultCommand implements SlashCommand {
@@ -24,7 +27,7 @@ public class TriggerConsultCommand implements SlashCommand {
     public SlashCommandInfo getSlashCommandInfo() {
         return new SlashCommandInfo(new SlashCommandPath(SlashCommandNames.TRIGGER, null, NAME),
                 DESCRIPTION,
-                true,
+                List.of(InteractionContextType.GUILD),
                 null,
                 SlashCommandCategory.ADMIN,
                 DefaultMemberPermissions.enabledFor(Permission.MESSAGE_MANAGE));

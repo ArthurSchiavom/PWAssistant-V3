@@ -6,6 +6,7 @@ import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashComman
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandPath;
 import jakarta.enterprise.context.ApplicationScoped;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.InteractionContextType;
 
 @ApplicationScoped
 public class PrivacyPolicyCommand implements SlashCommand {
@@ -43,7 +44,7 @@ public class PrivacyPolicyCommand implements SlashCommand {
     public SlashCommandInfo getSlashCommandInfo() {
         return new SlashCommandInfo(new SlashCommandPath(NAME, null, null),
                 DESCRIPTION,
-                false,
+                InteractionContextType.ALL,
                 null,
                 SlashCommandCategory.INFO);
     }

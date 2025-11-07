@@ -26,6 +26,7 @@ import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.InteractionContextType;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
@@ -69,7 +70,7 @@ public class PwiClockCommand implements SlashCommand {
     public SlashCommandInfo getSlashCommandInfo() {
         return new SlashCommandInfo(new SlashCommandPath(SlashCommandNames.CREATE, SlashCommandSubgroups.PWI, SUBCOMMAND_NAME),
                 DESCRIPTION,
-                true,
+                InteractionContextType.ALL,
                 List.of(new OptionData(OptionType.STRING, OPTION_NAME_SERVER1, "server1 (or leave empty to create for all servers)", false, true),
                         new OptionData(OptionType.STRING, OPTION_NAME_SERVER2, "server2", false, true),
                         new OptionData(OptionType.STRING, OPTION_NAME_SERVER3, "server3", false, true),

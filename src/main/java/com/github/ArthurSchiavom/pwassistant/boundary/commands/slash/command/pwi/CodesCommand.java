@@ -9,6 +9,9 @@ import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashComman
 import com.github.ArthurSchiavom.pwassistant.control.externalservice.HttpTextReader;
 import jakarta.enterprise.context.ApplicationScoped;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.InteractionContextType;
+
+import java.util.List;
 
 @ApplicationScoped
 public class CodesCommand implements SlashCommand {
@@ -19,7 +22,7 @@ public class CodesCommand implements SlashCommand {
     public SlashCommandInfo getSlashCommandInfo() {
         return new SlashCommandInfo(new SlashCommandPath(SlashCommandNames.PWI, null, NAME),
                 DESCRIPTION,
-                true,
+                List.of(InteractionContextType.GUILD),
                 null,
                 SlashCommandCategory.PWI);
     }

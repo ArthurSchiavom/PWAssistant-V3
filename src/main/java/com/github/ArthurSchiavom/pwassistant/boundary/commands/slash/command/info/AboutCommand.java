@@ -6,6 +6,7 @@ import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashComman
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandPath;
 import jakarta.enterprise.context.ApplicationScoped;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.InteractionContextType;
 
 import static com.github.ArthurSchiavom.pwassistant.boundary.BoundaryConfig.GITHUB_URL;
 import static com.github.ArthurSchiavom.pwassistant.boundary.BoundaryConfig.MAIN_SERVER_INVITE_URL;
@@ -37,7 +38,7 @@ public class AboutCommand implements SlashCommand {
     public SlashCommandInfo getSlashCommandInfo() {
         return new SlashCommandInfo(new SlashCommandPath(NAME, null, null),
                 DESCRIPTION,
-                false,
+                InteractionContextType.ALL,
                 null,
                 SlashCommandCategory.INFO);
     }

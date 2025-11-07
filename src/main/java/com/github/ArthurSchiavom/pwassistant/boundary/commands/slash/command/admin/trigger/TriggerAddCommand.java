@@ -5,15 +5,16 @@ import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashComman
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandInfo;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandNames;
 import com.github.ArthurSchiavom.pwassistant.boundary.commands.slash.SlashCommandPath;
-import com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.questionnaires.messagingSchedule.AddMessagingScheduleQuestionnaire;
 import com.github.ArthurSchiavom.pwassistant.boundary.questionnaire.questionnaires.trigger.AddTriggerQuestionnaire;
-import com.github.ArthurSchiavom.pwassistant.control.schedule.ScheduledMessageService;
 import com.github.ArthurSchiavom.pwassistant.control.trigger.TriggerService;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
+import net.dv8tion.jda.api.interactions.InteractionContextType;
 import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions;
+
+import java.util.List;
 
 @ApplicationScoped
 public class TriggerAddCommand implements SlashCommand {
@@ -27,7 +28,7 @@ public class TriggerAddCommand implements SlashCommand {
     public SlashCommandInfo getSlashCommandInfo() {
         return new SlashCommandInfo(new SlashCommandPath(SlashCommandNames.TRIGGER, null, NAME),
                 DESCRIPTION,
-                true,
+                List.of(InteractionContextType.GUILD),
                 null,
                 SlashCommandCategory.ADMIN,
                 DefaultMemberPermissions.enabledFor(Permission.MESSAGE_MANAGE));

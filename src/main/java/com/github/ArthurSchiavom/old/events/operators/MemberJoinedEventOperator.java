@@ -98,6 +98,6 @@ public class MemberJoinedEventOperator {
 
 	private void kickAndReport(String username, Member member) {
 		Reporter.reportToPWIKingdom(username + " was kicked due to having advertisement in the username.");
-		Guilds.getMainGuild().kick(member, "Username includes advertisement").queue();
+		Guilds.getMainGuild().kick(member).reason("Username includes advertisement").queue();
 	}
 }
