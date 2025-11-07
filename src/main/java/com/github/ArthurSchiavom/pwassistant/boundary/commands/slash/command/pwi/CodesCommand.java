@@ -10,8 +10,11 @@ import com.github.ArthurSchiavom.pwassistant.control.externalservice.HttpTextRea
 import jakarta.enterprise.context.ApplicationScoped;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.InteractionContextType;
+import net.dv8tion.jda.api.utils.SplitUtil;
 
 import java.util.List;
+
+import static net.dv8tion.jda.api.entities.Message.MAX_CONTENT_LENGTH;
 
 @ApplicationScoped
 public class CodesCommand implements SlashCommand {
@@ -29,6 +32,12 @@ public class CodesCommand implements SlashCommand {
 
     @Override
     public void execute(final SlashCommandInteractionEvent event) {
-        event.reply(HttpTextReader.readText(BoundaryConfig.PASTEBIN_URL)).queue();
+        String messageFull = HttpTextReader.readText(BoundaryConfig.PASTEBIN_URL);
+        List<String> messagesSplit = SplitUtil.split(messageFull, MAX_CONTENT_LENGTH, true, SplitUtil.Strategy.onChar('#'));
+        event.reply(messagesSplit.getFirst()).queue();
+        for (int i = 1; i < messagesSplit.size(); i++) {
+            final String nextMessage = messagesSplit.get(i);
+            event.getChannel().sendMessage(nextMessage).queue();
+        }
     }
 }
